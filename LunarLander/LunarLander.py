@@ -14,26 +14,29 @@ class LunarLanderGame:
         pygame.display.set_caption('Lunar Lander')
         pygame.font.init()
 
+        self.abs_path = path.dirname(path.abspath(__file__))
+
         self.game_loop = True
 
+        # user interface settings
         self.background = black
         self.delay = int(1000 / fps)
         self.dimensions = dimensions
-
-        self.scores_path = path.join(path.dirname(
-            path.abspath(__file__)), 'high_scores.json')
-        self.high_scores: list[ScoreEntry] = []
-
-        self.font = pygame.font.SysFont('Terminal', 24)
-
+        self.font = pygame.font.Font(
+            path.join(self.abs_path, 'assets', 'VT323-Regular.ttf'), 24)
         self.canvas = pygame.display.set_mode(self.dimensions)
 
+        # high score settings
+        self.scores_path = path.join(self.abs_path, 'high_scores.json')
+        self.high_scores: list[ScoreEntry] = []
+
         self.lander: PlayerLander = PlayerLander(
-            x_pos=int(dimensions[0] / 2),
+            x_pos=int(dimensions[0] / 4),
             y_pos=int(dimensions[1] / 4),
             fuel_level=50.0,
             strength=0.25,
-            max_velocity=3.00)
+            max_velocity=1.00)
+        self.lander.x_vel = 5.0
 
     def load_high_scores(self) -> None:
         if path.exists(self.scores_path):
@@ -49,25 +52,28 @@ class LunarLanderGame:
 
     def generate_text(self, x_pos: int, y_pos: int, spacing: int = 20) -> None:
         x_vel_text = f'X velocity: {round(self.lander.x_vel, 2)}'
-        x_vel_render = self.font.render(x_vel_text, True, white)
+        x_vel_color = red if abs(self.lander.x_vel) > self.lander.max_velocity else white  # noqa
+        x_vel_render = self.font.render(x_vel_text, True, x_vel_color)
         self.canvas.blit(x_vel_render, (x_pos, y_pos))
 
         y_vel_text = f'Y velocity: {round(self.lander.y_vel, 2)}'
-        y_vel_render = self.font.render(y_vel_text, True, white)
+        y_vel_color = red if abs(self.lander.y_vel) > self.lander.max_velocity else white  # noqa
+        y_vel_render = self.font.render(y_vel_text, True, y_vel_color)
         self.canvas.blit(y_vel_render, (x_pos, y_pos + (spacing * 1)))
 
     def draw_fuel_gauge(self, x_pos: int, y_pos: int) -> None:
         fuel_bar_length = 100
         fuel_bar_height = 15
+        fuel_bar_offset = 6
 
         fuel_render = self.font.render('Fuel:', True, white)
         self.canvas.blit(fuel_render, (x_pos, y_pos))
 
         fill = int((self.lander.fuel_remaining / self.lander.max_fuel) * fuel_bar_length)  # noqa
         outline_rect = pygame.Rect(
-            x_pos + 50, y_pos, fuel_bar_length, fuel_bar_height)
+            x_pos + 50, y_pos + fuel_bar_offset, fuel_bar_length, fuel_bar_height)
         fill_rect = pygame.Rect(
-            x_pos + 50, y_pos, fill, fuel_bar_height)
+            x_pos + 50, y_pos + fuel_bar_offset, fill, fuel_bar_height)
         pygame.draw.rect(self.canvas, white, fill_rect)
         pygame.draw.rect(self.canvas, white, outline_rect, 2)
 
@@ -102,7 +108,6 @@ class LunarLanderGame:
                 'name': 'Player',
                 'score': self.lander.calculate_score()}
             self.high_scores.append(score)
-            pygame.time.delay(5000)
             self.game_loop = False
 
     def run(self) -> None:
@@ -124,5 +129,5 @@ class LunarLanderGame:
 
 
 if __name__ == "__main__":
-    lander = LunarLanderGame()
+    lander = LunarLanderGame(dimensions=(720, 720), fps=60)
     lander.run()
