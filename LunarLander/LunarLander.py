@@ -3,12 +3,9 @@ import json
 
 from functions.data_structures import *
 from functions.lander import PlayerLander
+from functions.colors import *
 
 import pygame
-
-white = (255, 255, 255)
-black = (0, 0, 0)
-red = (255, 0, 0)
 
 
 class LunarLanderGame:
@@ -17,11 +14,11 @@ class LunarLanderGame:
         pygame.display.set_caption('Lunar Lander')
         pygame.font.init()
 
-        self.background = (0, 0, 0)
+        self.game_loop = True
 
+        self.background = black
         self.delay = int(1000 / fps)
         self.dimensions = dimensions
-        print(f'Window dimensions set to: {self.dimensions} at {fps} fps.')
 
         self.scores_path = path.join(path.dirname(
             path.abspath(__file__)), 'high_scores.json')
@@ -50,7 +47,7 @@ class LunarLanderGame:
         with open(self.scores_path, 'w') as f:
             json.dump(high_scores, f)
 
-    def generate_text(self, x_pos: int = 10, y_pos: int = 10, spacing: int = 20) -> None:
+    def generate_text(self, x_pos: int, y_pos: int, spacing: int = 20) -> None:
         x_vel_text = f'X velocity: {round(self.lander.x_vel, 2)}'
         x_vel_render = self.font.render(x_vel_text, True, white)
         self.canvas.blit(x_vel_render, (x_pos, y_pos))
@@ -74,53 +71,52 @@ class LunarLanderGame:
         pygame.draw.rect(self.canvas, white, fill_rect)
         pygame.draw.rect(self.canvas, white, outline_rect, 2)
 
+    def generate_graphics(self) -> None:
+        self.canvas.fill(self.background)
+        self.lander.update(
+            delay_interval=self.delay,
+            boundaries=(self.dimensions[0], self.dimensions[1] - 20))
+        pygame.draw.rect(self.canvas, white, (self.lander.x_pos, self.lander.y_pos, 10, 10))  # noqa
+
+    def handle_events(self) -> None:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.game_loop = False
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            self.lander.thrust_left()
+        if keys[pygame.K_RIGHT]:
+            self.lander.thrust_right()
+        if keys[pygame.K_DOWN]:
+            self.lander.thrust_down()
+        if keys[pygame.K_UP]:
+            self.lander.thrust_up()
+
+        if keys[pygame.K_q]:
+            self.game_loop = False
+
+    def handle_landings(self) -> None:
+        if self.lander.landed:
+            score: ScoreEntry = {
+                'name': 'Player',
+                'score': self.lander.calculate_score()}
+            self.high_scores.append(score)
+            pygame.time.delay(5000)
+            self.game_loop = False
+
     def run(self) -> None:
         self.load_high_scores()
 
-        while True:
-            self.canvas.fill(self.background)
-
+        while self.game_loop:
             pygame.time.delay(self.delay)  # 10 ms
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    break
+            self.handle_events()
+            self.generate_graphics()
+            self.generate_text(x_pos=10, y_pos=10)
+            self.draw_fuel_gauge(x_pos=10, y_pos=50)
 
-            if self.lander.landed:
-                score_item: ScoreEntry = {
-                    'name': 'test',
-                    'score': self.lander.calculate_score()}
-                self.high_scores.append(score_item)
-                pygame.time.delay(5000)
-                # TODO - add in a "RESTART GAME?" feature
-                break
-
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_LEFT]:
-                self.lander.thrust_left()
-            if keys[pygame.K_RIGHT]:
-                self.lander.thrust_right()
-            if keys[pygame.K_DOWN]:
-                self.lander.thrust_down()
-            if keys[pygame.K_UP]:
-                self.lander.thrust_up()
-
-            if keys[pygame.K_q]:
-                break
-
-            self.lander.update(
-                delay_interval=self.delay,
-                boundaries=(self.dimensions[0], self.dimensions[1] - 20))
-
-            self.generate_text()
-            self.draw_fuel_gauge(
-                x_pos=10, y_pos=50
-            )
-
-            pygame.draw.rect(
-                self.canvas,
-                (255, 0, 0),
-                (self.lander.x_pos, self.lander.y_pos, 10, 10))
+            self.handle_landings()
 
             pygame.display.update()
 
