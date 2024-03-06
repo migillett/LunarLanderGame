@@ -29,14 +29,24 @@ class LunarLanderGame:
         # high score settings
         self.scores_path = path.join(self.abs_path, 'high_scores.json')
         self.high_scores: list[ScoreEntry] = []
+        self.score_saved = False
 
+
+    def load_images(self) -> None:
+        self.lander_image
+
+
+    def start_game(self) -> None:
+        self.score_saved = False
         self.lander: PlayerLander = PlayerLander(
-            x_pos=int(dimensions[0] / 4),
-            y_pos=int(dimensions[1] / 4),
+            x_pos=int(self.dimensions[0]),
+            y_pos=int(self.dimensions[1] / 4),
             fuel_level=50.0,
             strength=0.25,
-            max_velocity=1.00)
+            max_velocity=1.00,
+            image_path=path.join(self.abs_path, 'assets', 'lander.png'))
         self.lander.x_vel = 5.0
+
 
     def load_high_scores(self) -> None:
         if path.exists(self.scores_path):
@@ -79,10 +89,14 @@ class LunarLanderGame:
 
     def generate_graphics(self) -> None:
         self.canvas.fill(self.background)
+        
         self.lander.update(
             delay_interval=self.delay,
-            boundaries=(self.dimensions[0], self.dimensions[1] - 20))
-        pygame.draw.rect(self.canvas, white, (self.lander.x_pos, self.lander.y_pos, 10, 10))  # noqa
+            window_size=self.dimensions)
+        
+        self.canvas.blit(
+            self.lander.sprite,
+            (self.lander.x_pos, self.lander.y_pos))
 
     def handle_events(self) -> None:
         for event in pygame.event.get():
@@ -99,7 +113,13 @@ class LunarLanderGame:
         if keys[pygame.K_UP]:
             self.lander.thrust_up()
 
+        # restart
+        if keys[pygame.K_r]:
+            self.start_game()
+
+        # quit
         if keys[pygame.K_q]:
+            # quit
             self.game_loop = False
 
     def handle_landings(self) -> None:
@@ -108,10 +128,13 @@ class LunarLanderGame:
                 'name': 'Player',
                 'score': self.lander.calculate_score()}
             self.high_scores.append(score)
-            self.game_loop = False
+            self.score_saved = True
+            
 
     def run(self) -> None:
         self.load_high_scores()
+
+        self.start_game()
 
         while self.game_loop:
             pygame.time.delay(self.delay)  # 10 ms
@@ -121,7 +144,8 @@ class LunarLanderGame:
             self.generate_text(x_pos=10, y_pos=10)
             self.draw_fuel_gauge(x_pos=10, y_pos=50)
 
-            self.handle_landings()
+            if not self.score_saved:
+                self.handle_landings()
 
             pygame.display.update()
 
