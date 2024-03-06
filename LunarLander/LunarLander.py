@@ -1,5 +1,6 @@
 from os import path
 import json
+from datetime import datetime
 
 from functions.data_structures import *
 from functions.lander import PlayerLander
@@ -31,10 +32,8 @@ class LunarLanderGame:
         self.high_scores: list[ScoreEntry] = []
         self.score_saved = False
 
-
     def load_images(self) -> None:
         self.lander_image
-
 
     def start_game(self) -> None:
         self.score_saved = False
@@ -47,7 +46,6 @@ class LunarLanderGame:
             image_path=path.join(self.abs_path, 'assets', 'lander.png'))
         self.lander.x_vel = 5.0
 
-
     def load_high_scores(self) -> None:
         if path.exists(self.scores_path):
             with open(self.scores_path, 'r') as f:
@@ -58,7 +56,7 @@ class LunarLanderGame:
         if len(high_scores) > 10:
             high_scores = high_scores[:10]
         with open(self.scores_path, 'w') as f:
-            json.dump(high_scores, f)
+            json.dump(high_scores, f, indent=4)
 
     def generate_text(self, x_pos: int, y_pos: int, spacing: int = 20) -> None:
         x_vel_text = f'X velocity: {round(self.lander.x_vel, 2)}'
@@ -89,14 +87,19 @@ class LunarLanderGame:
 
     def generate_graphics(self) -> None:
         self.canvas.fill(self.background)
-        
+
         self.lander.update(
             delay_interval=self.delay,
             window_size=self.dimensions)
-        
+
         self.canvas.blit(
             self.lander.sprite,
             (self.lander.x_pos, self.lander.y_pos))
+
+    def display_score(self, score: ScoreEntry, x_pos: int, y_pos: int) -> None:
+        score_text = f'{score["name"]}: {score["score"]}'
+        score_render = self.font.render(score_text, True, white)
+        self.canvas.blit(score_render, (x_pos, y_pos))
 
     def handle_events(self) -> None:
         for event in pygame.event.get():
@@ -126,10 +129,12 @@ class LunarLanderGame:
         if self.lander.landed:
             score: ScoreEntry = {
                 'name': 'Player',
-                'score': self.lander.calculate_score()}
+                'score': self.lander.calculate_score(),
+                'timestamp': datetime.now().timestamp()}
             self.high_scores.append(score)
             self.score_saved = True
-            
+            self.display_score(
+                score, self.dimensions[0]/2, self.dimensions[1]/2)
 
     def run(self) -> None:
         self.load_high_scores()
@@ -144,10 +149,9 @@ class LunarLanderGame:
             self.generate_text(x_pos=10, y_pos=10)
             self.draw_fuel_gauge(x_pos=10, y_pos=50)
 
+            pygame.display.update()
             if not self.score_saved:
                 self.handle_landings()
-
-            pygame.display.update()
 
         self.write_high_scores()
 

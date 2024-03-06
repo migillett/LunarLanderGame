@@ -31,7 +31,7 @@ class PlayerLander:
         self.max_velocity = max_velocity
 
         self.sprite: pygame.image = self.load_sprite(image_path, 50)
-        
+
         self.t1 = datetime.now()
 
     def fire_thrusters(self) -> bool:
@@ -39,7 +39,7 @@ class PlayerLander:
             self.fuel_remaining -= self.thurster_strength
             return True
         return False
-    
+
     def load_sprite(self, image_path: str, max_height: int) -> pygame.image:
         sprite = pygame.image.load(image_path).convert()
         sprite_width, sprite_height = sprite.get_size()
@@ -94,9 +94,10 @@ class PlayerLander:
             if not self.landed:
                 self.attempt_landing()
 
-            self.y_pos = window_size[1]
+            # self.y_pos = window_size[1] - sprite_height
             self.y_vel = 0
             self.x_vel = 0
+            self.fuel_remaining = 0
             return
 
         # check if sprite is outside of boundary X fields
