@@ -3,34 +3,9 @@ import json
 
 from functions.lander import *
 from functions.colors import *
+from functions.data_structures import *
 
 import pygame
-
-
-# TODO - implement this into the game
-class DifficultySettings:
-    # default settings = Easy
-    gravity: float = 0.0253
-    fuel_level: float = 100.0
-    max_speed: float = 2.0
-    score_multiplier: float = 1.0
-    starting_velocity: float = 1.0
-    starting_angular_velocity: float = 0.0
-
-    def __init__(self, difficulty_setting: int = 1) -> None:
-        if difficulty_setting == 2:  # mars?
-            pass
-
-        elif difficulty_setting == 3:  # earth?
-            pass
-
-        elif difficulty_setting == 4:
-            pass
-
-        elif difficulty_setting == 69:  # for testing
-            self.max_speed = 99999999999
-
-        self.score_multiplier = difficulty_setting
 
 
 class LunarLanderGame:
@@ -38,6 +13,9 @@ class LunarLanderGame:
         pygame.init()
         pygame.display.set_caption('Lunar Lander')
         pygame.font.init()
+
+        self.start_time: datetime = datetime.now()
+        self.flight_time: float = 0.0
 
         self.abs_path = path.dirname(path.abspath(__file__))
 
@@ -59,6 +37,7 @@ class LunarLanderGame:
         self.difficulty = difficulty
 
     def start_game(self) -> None:
+        self.start_time = datetime.now()
         self.user_score = None
         self.lander: PlayerLander = PlayerLander(
             x_pos=int(1),
@@ -84,6 +63,11 @@ class LunarLanderGame:
             high_scores = high_scores[:10]
         with open(self.scores_path, 'w') as f:
             json.dump(high_scores, f, indent=4)
+
+    def calculate_flight_time(self) -> None:
+        if not self.lander.landed:  # only update flight time if the lander hasn't landed
+            self.flight_time = round(
+                (datetime.now() - self.start_time).total_seconds(), 2)
 
     def generate_text(self, x_pos: int, y_pos: int, spacing: int = 20) -> None:
         # X VELOCITY
@@ -115,6 +99,13 @@ class LunarLanderGame:
         angle_color = white if current_angle <= 10 or current_angle >= 350 else red
         angle_render = self.font.render(angle_text, True, angle_color)
         self.canvas.blit(angle_render, (x_pos, y_pos))
+
+        y_pos += spacing
+
+        # FLIGHT TIME
+        flight_time_text = f'Flight Time: {round(self.flight_time, 2)}'
+        flight_time_render = self.font.render(flight_time_text, True, white)
+        self.canvas.blit(flight_time_render, (x_pos, y_pos))
 
         y_pos += spacing
 
@@ -154,10 +145,15 @@ class LunarLanderGame:
             score_text = [
                 'THE EAGLE HAS LANDED!',
                 f'Total Flight Time: {score.flight_time}',
-                f'Remaining Fuel: {score.fuel_remaining}',
-                f'Achievements: {", ".join(score.achievements)}',
-                f'Score: {score.score}',
+                f'Remaining Fuel: {score.fuel_remaining}'
             ]
+
+            if len(score.achievements) > 0:
+                score_text.append(
+                    f'Achievements: {", ".join(score.achievements)}',
+                )
+
+            score_text.append(f'Final Score: {score.score}')
 
         score_text.extend(['', 'Press "R" to play again', 'Press "Q" to quit'])
 
@@ -200,15 +196,24 @@ class LunarLanderGame:
         while self.game_loop:
             # pygame.time.delay(self.delay)  # 10 ms
 
+            if self.lander.landed and self.user_score is None:
+                self.user_score: ScoreEntry = ScoreEntry(
+                    name='Player 1',
+                    flight_time=self.flight_time,
+                    fuel_remaining=round(self.lander.fuel_remaining, 2),
+                    difficulty_settings=self.difficulty,
+                    crashed=self.lander.crashed)
+
+                self.user_score.calculate_score()
+
+                self.high_scores.append(self.user_score.as_dict())
+
+            self.calculate_flight_time()
             self.handle_events()
             self.generate_graphics()
             self.generate_text(x_pos=10, y_pos=10)
 
             pygame.display.flip()
-
-            if self.lander.landed and self.user_score is None:
-                self.user_score: ScoreEntry = self.lander.calculate_score('Player 1')  # noqa
-                self.high_scores.append(self.user_score.as_dict())
 
             pygame.time.Clock().tick(60)
 

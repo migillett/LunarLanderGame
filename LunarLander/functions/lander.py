@@ -1,20 +1,7 @@
-from datetime import datetime
 import pygame
 import math
-from dataclasses import dataclass, asdict, field
 
-
-@dataclass
-class ScoreEntry:
-    name: str
-    flight_time: float
-    fuel_remaining: float
-    score: int = 0
-    timestamp: float = datetime.now().timestamp()
-    achievements: list = field(default_factory=list)
-
-    def as_dict(cls) -> dict:
-        return asdict(cls)
+from functions.data_structures import *
 
 
 class PlayerLander(pygame.sprite.Sprite):
@@ -59,8 +46,6 @@ class PlayerLander(pygame.sprite.Sprite):
         self.sprite = self.original_sprite.copy()
         self.rect = self.original_sprite.get_rect(center=(x_pos, y_pos))
 
-        self.t1 = datetime.now()
-
     def load_sprite(self, image_path: str, max_height: int) -> pygame.image:
         sprite = pygame.image.load(image_path)
         sprite_width, sprite_height = sprite.get_size()
@@ -91,29 +76,6 @@ class PlayerLander(pygame.sprite.Sprite):
         valid_landing_angle = self.angle > 260 and self.angle < 280
         self.crashed = self.max_velocity <= (
             self.y_vel + self.x_vel) or not valid_landing_angle
-
-    def calculate_score(self, player_name: str) -> ScoreEntry:
-        response = ScoreEntry(
-            name=player_name,
-            flight_time=round((datetime.now() - self.t1).total_seconds(), 2),
-            fuel_remaining=round(self.fuel_remaining, 2)
-        )
-
-        if self.crashed:
-            return response
-
-        if response.fuel_remaining == 0:
-            # nothing but fumes - land successfully with with no fuel remaining
-            response.score += 1000
-            response.achievements.append("Nothing but fumes")
-
-        if response.flight_time <= 30.0:
-            # No time for chit-chat - land successfully in less than 30 seconds
-            response.score += 600
-            response.achievements.append("No time for chit-chat")
-
-        response.score += int((response.fuel_remaining / response.flight_time) * 100)  # noqa
-        return response
 
     def update(self) -> None:
         # window_dimensions dimensions are in (x, y)
@@ -149,8 +111,3 @@ class PlayerLander(pygame.sprite.Sprite):
             self.original_sprite, self.angle)
 
         self.rect.center = (self.x_pos, self.y_pos)
-
-
-if __name__ == "__main__":
-    score = ScoreEntry('test', 0.0, 10.0)
-    print(score.as_dict())
