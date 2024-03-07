@@ -55,6 +55,11 @@ class ScoreEntry:
             cls.score += 600
             cls.achievements.append("No time for chit-chat")
 
+        elif int(cls.flight_time) == 69:
+            # huhu, nice
+            cls.score += 69
+            cls.achievements.append("Nice")
+
         cls.score += int((cls.fuel_remaining / cls.flight_time) * 100)  # noqa
         cls.score = int(
             cls.score * cls.difficulty_settings.score_multiplier)

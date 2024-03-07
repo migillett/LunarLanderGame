@@ -1,18 +1,8 @@
 [
     {
         "name": "Player 1",
-        "flight_time": 16.05,
-        "fuel_remaining": 79.25,
-        "score": 1093,
-        "timestamp": 1709782896.449073,
-        "achievements": [
-            "No time for chit-chat"
-        ]
-    },
-    {
-        "name": "Player 1",
-        "flight_time": 16.86,
-        "fuel_remaining": 76.5,
+        "flight_time": 18.73,
+        "fuel_remaining": 76.25,
         "crashed": false,
         "difficulty_settings": {
             "difficulty_preset": 1,
@@ -24,67 +14,16 @@
             "starting_velocity": 1.0,
             "starting_angular_velocity": 0.0
         },
-        "score": 1053,
-        "timestamp": 1709828858.108057,
+        "score": 1007,
+        "timestamp": 1709830642.329187,
         "achievements": [
             "No time for chit-chat"
         ]
     },
     {
         "name": "Player 1",
-        "flight_time": 21.67,
-        "fuel_remaining": 64.25,
-        "score": 896,
-        "timestamp": 1709821145.502675,
-        "achievements": [
-            "No time for chit-chat"
-        ]
-    },
-    {
-        "name": "Player 1",
-        "flight_time": 22.926629,
-        "fuel_remaining": 67.0,
-        "score": 892,
-        "timestamp": 1709820845.239925,
-        "achievements": [
-            "No time for chit-chat"
-        ]
-    },
-    {
-        "name": "Player 1",
-        "flight_time": 24.44,
-        "fuel_remaining": 68.25,
-        "score": 879,
-        "timestamp": 1709820313.115422,
-        "achievements": [
-            "No time for chit-chat"
-        ]
-    },
-    {
-        "name": "Player 1",
-        "flight_time": 26.6,
-        "fuel_remaining": 62.0,
-        "crashed": false,
-        "difficulty_settings": {
-            "difficulty_preset": 1,
-            "difficulty_name": "Moon",
-            "gravity": 0.0253,
-            "fuel_level": 100.0,
-            "max_speed": 2.0,
-            "score_multiplier": 1.0,
-            "starting_velocity": 1.0,
-            "starting_angular_velocity": 0.0
-        },
-        "score": 833,
-        "timestamp": 1709828654.897264,
-        "achievements": [
-            "No time for chit-chat"
-        ]
-    },
-    {
-        "name": "Player 1",
-        "flight_time": 23.5,
-        "fuel_remaining": 65.0,
+        "flight_time": 14.73,
+        "fuel_remaining": 58.5,
         "crashed": true,
         "difficulty_settings": {
             "difficulty_preset": 1,
@@ -97,64 +36,7 @@
             "starting_angular_velocity": 0.0
         },
         "score": 0,
-        "timestamp": 1709822513.000408,
-        "achievements": []
-    },
-    {
-        "name": "Player 1",
-        "flight_time": 21.07,
-        "fuel_remaining": 59.5,
-        "crashed": false,
-        "difficulty_settings": {
-            "difficulty_preset": 1,
-            "difficulty_name": "Moon",
-            "gravity": 0.0253,
-            "fuel_level": 100.0,
-            "max_speed": 2.0,
-            "score_multiplier": 1.0,
-            "starting_velocity": 1.0,
-            "starting_angular_velocity": 0.0
-        },
-        "score": 0,
-        "timestamp": 1709822513.000408,
-        "achievements": []
-    },
-    {
-        "name": "Player 1",
-        "flight_time": 29.88,
-        "fuel_remaining": 64.5,
-        "crashed": false,
-        "difficulty_settings": {
-            "difficulty_preset": 1,
-            "difficulty_name": "Moon",
-            "gravity": 0.0253,
-            "fuel_level": 100.0,
-            "max_speed": 2.0,
-            "score_multiplier": 1.0,
-            "starting_velocity": 1.0,
-            "starting_angular_velocity": 0.0
-        },
-        "score": 0,
-        "timestamp": 1709822696.714942,
-        "achievements": []
-    },
-    {
-        "name": "Player 1",
-        "flight_time": 22.75,
-        "fuel_remaining": 57.5,
-        "crashed": false,
-        "difficulty_settings": {
-            "difficulty_preset": 1,
-            "difficulty_name": "Moon",
-            "gravity": 0.0253,
-            "fuel_level": 100.0,
-            "max_speed": 2.0,
-            "score_multiplier": 1.0,
-            "starting_velocity": 1.0,
-            "starting_angular_velocity": 0.0
-        },
-        "score": 0,
-        "timestamp": 1709822768.376808,
+        "timestamp": 1709830642.329187,
         "achievements": []
     }
 ]
