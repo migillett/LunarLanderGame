@@ -23,7 +23,7 @@ class LunarLanderGame:
 
         # user interface settings
         self.background = black
-        self.delay = int(1000 / fps)
+        self.fps = fps
         self.dimensions = dimensions
         self.font = pygame.font.Font(
             path.join(self.abs_path, 'assets', 'VT323-Regular.ttf'), 24)
@@ -47,7 +47,7 @@ class LunarLanderGame:
             fuel_level=self.difficulty.fuel_level,
             max_velocity=self.difficulty.max_speed,
             window_dimensions=self.dimensions,
-            gravity=(0.0253/self.delay),
+            gravity=(0.0253/int(1000 / self.fps)),
             image_path=path.join(self.abs_path, 'assets', 'lander.png'))
         self.lander.x_vel = self.difficulty.starting_velocity
 
@@ -194,7 +194,7 @@ class LunarLanderGame:
         self.start_game()
 
         while self.game_loop:
-            # pygame.time.delay(self.delay)  # 10 ms
+
             if self.lander.landed and self.user_score is None:
                 self.user_score: ScoreEntry = ScoreEntry(
                     name='Player 1',
@@ -214,7 +214,7 @@ class LunarLanderGame:
 
             pygame.display.flip()
 
-            pygame.time.Clock().tick(60)
+            pygame.time.Clock().tick(self.fps)
 
         self.write_high_scores()
 
