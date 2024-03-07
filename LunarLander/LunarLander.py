@@ -130,6 +130,11 @@ class LunarLanderGame:
     def generate_graphics(self) -> None:
         self.canvas.fill(self.background)
 
+        # create ground
+        pygame.draw.rect(
+            self.canvas, white,
+            (0, self.dimensions[1] - 25, self.dimensions[0], 25))
+
         all_sprites = pygame.sprite.Group(self.lander)
         all_sprites.update()
         all_sprites.draw(self.canvas)
