@@ -195,7 +195,6 @@ class LunarLanderGame:
 
         while self.game_loop:
             # pygame.time.delay(self.delay)  # 10 ms
-
             if self.lander.landed and self.user_score is None:
                 self.user_score: ScoreEntry = ScoreEntry(
                     name='Player 1',
