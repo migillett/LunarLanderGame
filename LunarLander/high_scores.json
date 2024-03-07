@@ -1,22 +1,12 @@
 [
     {
-        "name": "Player",
-        "score": 0.0,
-        "timestamp": 1709759522.848896
-    },
-    {
-        "name": "Player",
-        "score": 0.0,
-        "timestamp": 1709759531.870587
-    },
-    {
-        "name": "Player",
-        "score": 0.0,
-        "timestamp": 1709759661.648022
-    },
-    {
-        "name": "Player",
-        "score": 453,
-        "timestamp": 1709759539.427652
+        "name": "Player 1",
+        "flight_time": 16.05,
+        "fuel_remaining": 79.25,
+        "score": 1093,
+        "timestamp": 1709782896.449073,
+        "achievements": [
+            "No time for chit-chat"
+        ]
     }
 ]
