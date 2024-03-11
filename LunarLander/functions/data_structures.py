@@ -87,6 +87,11 @@ class ScoreEntry:
             cls.score += 600
             cls.achievements.append("Coming in hot")
 
+        elif cls.heat <= 1.0:
+            # cool as a cucumber - land with less than 1% heat
+            cls.score += 1000
+            cls.achievements.append("Cool as a cucumber")
+
         elif int(cls.flight_time) == 69:
             # huhu, nice
             cls.score += 69

@@ -66,7 +66,7 @@ class PlayerLander(pygame.sprite.Sprite):
             self.heat += self.heat_coefficient
 
     def fire_thruster(self) -> None:
-        if self.fuel_remaining > 0 and self.heat < self.max_heat:
+        if self.fuel_remaining > 0 and self.heat < self.max_heat and not self.landed:
             self.fuel_remaining -= self.thruster_strength
             angle_radians = math.radians(self.angle)
             force_x = self.thruster_strength * math.cos(angle_radians)

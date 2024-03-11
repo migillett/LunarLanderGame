@@ -197,11 +197,11 @@ class LunarLanderGame:
                 self.game_loop = False
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_UP] and not self.lander.landed:  # fire main thruster
+        if keys[pygame.K_UP]:  # fire main thruster
             self.lander.fire_thruster()
-        if keys[pygame.K_LEFT] and not self.lander.landed:  # pitch left
+        if keys[pygame.K_LEFT]:  # pitch left
             self.lander.fire_rcs(0.25)
-        if keys[pygame.K_RIGHT] and not self.lander.landed:  # pitch right
+        if keys[pygame.K_RIGHT]:  # pitch right
             self.lander.fire_rcs(-0.25)
 
         # restart

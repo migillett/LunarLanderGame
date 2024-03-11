@@ -109,6 +109,28 @@
     },
     {
         "name": "Player 1",
+        "flight_time": 23.43,
+        "fuel_remaining": 70.25,
+        "heat": 9.1,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 2.0,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 1.0
+        },
+        "score": 899,
+        "timestamp": 1710189145.923525,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "Player 1",
         "flight_time": 14.73,
         "fuel_remaining": 58.5,
         "crashed": true,
@@ -187,27 +209,6 @@
         },
         "score": 0,
         "timestamp": 1710171114.107554,
-        "achievements": []
-    },
-    {
-        "name": "Player 1",
-        "flight_time": 7.02,
-        "fuel_remaining": 69.25,
-        "heat": 89.9,
-        "crashed": true,
-        "difficulty_settings": {
-            "difficulty_preset": 1,
-            "difficulty_name": "Moon",
-            "gravity": 0.0253,
-            "fuel_level": 100.0,
-            "max_speed": 2.0,
-            "score_multiplier": 1.0,
-            "starting_velocity": 1.0,
-            "starting_angular_velocity": 0.0,
-            "heat_coefficient": 1.0
-        },
-        "score": 0,
-        "timestamp": 1710171133.337619,
         "achievements": []
     }
 ]
