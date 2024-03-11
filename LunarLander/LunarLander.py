@@ -246,7 +246,7 @@ class LunarLanderGame:
 
 
 if __name__ == "__main__":
-    settings = DifficultySettings(difficulty_setting=2)
+    settings = DifficultySettings(difficulty_setting=1)
 
     print(settings.__dict__)
 
