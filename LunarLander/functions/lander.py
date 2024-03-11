@@ -10,12 +10,12 @@ class PlayerLander(pygame.sprite.Sprite):
     y_pos: float
     angle: float
     thruster_strength: float
-    max_fuel: float
-    fuel_remaining: float
     max_velocity: float
     delay_interval: float
     window_dimensions: tuple[int, int]
 
+    fuel_remaining: float = 100.0
+    max_fuel: float = 100.0
     x_vel: float = 0.0
     y_vel: float = 0.0
     rotation_velocity: float = 0.0
@@ -23,10 +23,13 @@ class PlayerLander(pygame.sprite.Sprite):
     lives: int = 3
     landed: bool = False
     crashed: bool = False
+    heat: float = 0.0
+    max_heat: float = 100.0
 
     def __init__(
             self, x_pos: int, y_pos: int, angle: float,
-            strength: float, fuel_level: float,
+            angular_velocity: float,
+            strength: float, heat_coefficient: float,
             max_velocity: float, image_path: str,
             window_dimensions: tuple[int, int],
             gravity: float) -> None:
@@ -35,16 +38,16 @@ class PlayerLander(pygame.sprite.Sprite):
         self.gravity = gravity  # lunar gravity is 0.0253 m/s^2. Divide that by the FPS
         self.x_pos = x_pos
         self.y_pos = y_pos
-        self.angle = angle
+        self.angle = angle - 90.0
+        self.rotation_velocity = angular_velocity
         self.thruster_strength = strength
-        self.max_fuel = fuel_level
-        self.fuel_remaining = fuel_level
         self.max_velocity = max_velocity
         self.window_dimensions = window_dimensions
 
         self.original_sprite: pygame.image = self.load_sprite(image_path, 50)
         self.sprite = self.original_sprite.copy()
         self.rect = self.original_sprite.get_rect(center=(x_pos, y_pos))
+        self.heat_coefficient = heat_coefficient
 
     def load_sprite(self, image_path: str, max_height: int) -> pygame.image:
         sprite = pygame.image.load(image_path)
@@ -57,18 +60,20 @@ class PlayerLander(pygame.sprite.Sprite):
         return sprite
 
     def fire_rcs(self, rcs_force: float) -> None:
-        if self.fuel_remaining > 0:
+        if self.fuel_remaining > 0 and self.heat < self.max_heat:
             self.fuel_remaining -= self.thruster_strength
             self.rotation_velocity += rcs_force
+            self.heat += self.heat_coefficient
 
     def fire_thruster(self) -> None:
-        if self.fuel_remaining > 0:
+        if self.fuel_remaining > 0 and self.heat < self.max_heat:
             self.fuel_remaining -= self.thruster_strength
             angle_radians = math.radians(self.angle)
             force_x = self.thruster_strength * math.cos(angle_radians)
             force_y = self.thruster_strength * math.sin(angle_radians)
             self.x_vel -= force_x / self.mass
             self.y_vel += force_y / self.mass
+            self.heat += self.heat_coefficient
 
     def attempt_landing(self) -> None:
         self.landed = True
@@ -100,6 +105,9 @@ class PlayerLander(pygame.sprite.Sprite):
             self.x_pos = x_max - 1
         elif self.x_pos > x_max:
             self.x_pos = x_min + 1
+
+        heat_reduce = self.heat - (self.heat_coefficient / 10)
+        self.heat = heat_reduce if heat_reduce > 0 else 0
 
         self.y_vel += self.gravity
 

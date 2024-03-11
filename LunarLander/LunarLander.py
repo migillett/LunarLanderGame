@@ -42,12 +42,13 @@ class LunarLanderGame:
         self.lander: PlayerLander = PlayerLander(
             x_pos=int(1),
             y_pos=int(self.dimensions[1] / 4),
-            angle=0.0,
+            angle=90.0,
+            angular_velocity=self.difficulty.starting_angular_velocity,
             strength=0.25,
-            fuel_level=self.difficulty.fuel_level,
             max_velocity=self.difficulty.max_speed,
+            heat_coefficient=self.difficulty.heat_coefficient,
             window_dimensions=self.dimensions,
-            gravity=(0.0253/int(1000 / self.fps)),
+            gravity=(self.difficulty.gravity/int(1000 / self.fps)),
             image_path=path.join(self.abs_path, 'assets', 'lander.png'))
         self.lander.x_vel = self.difficulty.starting_velocity
 
@@ -70,18 +71,19 @@ class LunarLanderGame:
                 (datetime.now() - self.start_time).total_seconds(), 2)
 
     def generate_text(self, x_pos: int, y_pos: int, spacing: int = 20) -> None:
+        combined_velocity = abs(self.lander.x_vel) + abs(self.lander.y_vel)
+        velocity_color = red if combined_velocity > self.lander.max_velocity else white  # noqa
+
         # X VELOCITY
         x_vel_text = f'X velocity: {round(self.lander.x_vel, 2)}'
-        x_vel_color = red if abs(self.lander.x_vel) > self.lander.max_velocity else white  # noqa
-        x_vel_render = self.font.render(x_vel_text, True, x_vel_color)
+        x_vel_render = self.font.render(x_vel_text, True, velocity_color)
         self.canvas.blit(x_vel_render, (x_pos, y_pos))
 
         y_pos += spacing
 
         # Y VELOCITY
         y_vel_text = f'Y velocity: {round(self.lander.y_vel, 2)}'
-        y_vel_color = red if abs(self.lander.y_vel) > self.lander.max_velocity else white  # noqa
-        y_vel_render = self.font.render(y_vel_text, True, y_vel_color)
+        y_vel_render = self.font.render(y_vel_text, True, velocity_color)
         self.canvas.blit(y_vel_render, (x_pos, y_pos))
 
         y_pos += spacing
@@ -123,6 +125,24 @@ class LunarLanderGame:
             x_pos + 50, y_pos + 6, fill, fuel_bar_height)
         pygame.draw.rect(self.canvas, white, fill_rect)
         pygame.draw.rect(self.canvas, white, outline_rect, 2)
+
+        y_pos += spacing
+
+        # HEAT BAR
+        heat_bar_length = 100
+        heat_bar_height = 15
+
+        heat_color = red if self.lander.heat > 80.0 else white
+        heat_render = self.font.render('Heat:', True, heat_color)
+        self.canvas.blit(heat_render, (x_pos, y_pos))
+
+        heat_fill = int((self.lander.heat / self.lander.max_heat) * heat_bar_length)  # noqa
+        outline_rect = pygame.Rect(
+            x_pos + 50, y_pos + 6, heat_bar_length, heat_bar_height)
+        heat_fill_rect = pygame.Rect(
+            x_pos + 50, y_pos + 6, heat_fill, heat_bar_height)
+        pygame.draw.rect(self.canvas, heat_color, heat_fill_rect)
+        pygame.draw.rect(self.canvas, heat_color, outline_rect, 2)
 
         if self.user_score is not None:
             self.display_score(self.user_score)
@@ -205,6 +225,7 @@ class LunarLanderGame:
                     name='Player 1',
                     flight_time=self.flight_time,
                     fuel_remaining=round(self.lander.fuel_remaining, 2),
+                    heat=round(self.lander.heat, 2),
                     difficulty_settings=self.difficulty,
                     crashed=self.lander.crashed)
 
@@ -225,7 +246,10 @@ class LunarLanderGame:
 
 
 if __name__ == "__main__":
-    settings = DifficultySettings(1)
+    settings = DifficultySettings(difficulty_setting=2)
+
+    print(settings.__dict__)
+
     lander = LunarLanderGame(
         difficulty=settings,
         dimensions=(720, 720),

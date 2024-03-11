@@ -1,23 +1,49 @@
 from dataclasses import dataclass, asdict, field
 from datetime import datetime
+from random import randint
 
 
 @dataclass
 class DifficultySettings:
     # default settings = Easy
-    difficulty_preset: int = 1
-    difficulty_name: str = "Moon"
-    gravity: float = 0.0253
-    fuel_level: float = 100.0
-    max_speed: float = 2.0
-    score_multiplier: float = 1.0
-    starting_velocity: float = 1.0
-    starting_angular_velocity: float = 0.0
+    difficulty_preset: int
+    difficulty_name: str
+    gravity: float
+    max_speed: float
+    score_multiplier: float
+    starting_velocity: float
+    starting_angular_velocity: float
+    heat_coefficient: float
 
-    def __init_subclass__(cls, difficulty_setting: int = 1) -> None:
+    def __init__(cls, difficulty_setting: int = 1) -> None:
+        # default settings
         cls.difficulty_preset = difficulty_setting
-        # if difficulty_setting == 2:  # mars?
-        #     cls.difficulty_preset = 2
+        cls.max_speed = 2.0
+        cls.starting_velocity = 1.0
+        cls.starting_angular_velocity = 0.0
+
+        if cls.difficulty_preset == 1:
+            # Moon: less gravity, less heat
+            cls.difficulty_name = "Moon"
+            cls.gravity = 0.0253
+            cls.heat_coefficient = 1.0
+            cls.score_multiplier = 1.0
+
+        elif cls.difficulty_preset == 2:
+            # Moon: same as 1, but with a curveball for angular velocity and starting velocity
+            cls.difficulty_name = "Curveball Moon"
+            cls.gravity = 0.0253
+            cls.starting_angular_velocity = float(randint(-5, 5))
+            cls.starting_velocity = float(randint(0, 2))
+            cls.heat_coefficient = 2.0
+            cls.score_multiplier = 2.0
+
+        # elif cls.difficulty_preset == 3:
+        #     # Earth: standard gravity, even hotter
+        #     cls.difficulty_name = "Earth"
+        #     cls.gravity = 9.81
+        #     cls.heat_coefficient = 4.0
+        #     cls.score_multiplier = 4.0
 
         # elif difficulty_setting == 3:  # earth?
         #     cls.difficulty_preset = 3
@@ -35,6 +61,7 @@ class ScoreEntry:
     name: str
     flight_time: float
     fuel_remaining: float
+    heat: float
     crashed: bool
     difficulty_settings: DifficultySettings
     score: int = 0
@@ -54,6 +81,11 @@ class ScoreEntry:
             # No time for chit-chat - land successfully in less than 30 seconds
             cls.score += 600
             cls.achievements.append("No time for chit-chat")
+
+        if cls.heat >= 95.0:
+            # coming in hot - land successfully with heat above 95%
+            cls.score += 600
+            cls.achievements.append("Coming in hot")
 
         elif int(cls.flight_time) == 69:
             # huhu, nice
