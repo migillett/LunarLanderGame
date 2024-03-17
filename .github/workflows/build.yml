@@ -1,4 +1,4 @@
-name: Python package
+name: Windows Executable
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
@@ -23,13 +23,10 @@ jobs:
         run: python -m pip install -r requirements.txt
 
       - name: Create Executable
-        run: pyinstaller --onefile --hidden-import=pygame --add-data "./LunarLander/assets:assets" --add-data "./LunarLander/functions:functions" --noconsole ./LunarLander/LunarLander.py
-
-      - name: List directory
-        run: ls -al ./dist/
+        run: pyinstaller --onefile --hidden-import=pygame --add-data ".\LunarLander\assets;assets" --add-data ".\LunarLander\functions;functions" --noconsole .\LunarLander\LunarLander.py
 
       - name: Upload Executable
         uses: actions/upload-artifact@v2
         with:
           name: LunarLander.exe
-          path: ./dist/LunarLander.exe
+          path: .\dist\LunarLander.exe
