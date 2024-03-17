@@ -3,34 +3,9 @@ import json
 
 from functions.lander import *
 from functions.colors import *
+from functions.data_structures import *
 
 import pygame
-
-
-# TODO - implement this into the game
-class DifficultySettings:
-    # default settings = Easy
-    gravity: float = 0.0253
-    fuel_level: float = 100.0
-    max_speed: float = 2.0
-    score_multiplier: float = 1.0
-    starting_velocity: float = 1.0
-    starting_angular_velocity: float = 0.0
-
-    def __init__(self, difficulty_setting: int = 1) -> None:
-        if difficulty_setting == 2:  # mars?
-            pass
-
-        elif difficulty_setting == 3:  # earth?
-            pass
-
-        elif difficulty_setting == 4:
-            pass
-
-        elif difficulty_setting == 69:  # for testing
-            self.max_speed = 99999999999
-
-        self.score_multiplier = difficulty_setting
 
 
 class LunarLanderGame:
@@ -39,13 +14,16 @@ class LunarLanderGame:
         pygame.display.set_caption('Lunar Lander')
         pygame.font.init()
 
+        self.start_time: datetime = datetime.now()
+        self.flight_time: float = 0.0
+
         self.abs_path = path.dirname(path.abspath(__file__))
 
         self.game_loop = True
 
         # user interface settings
         self.background = black
-        self.delay = int(1000 / fps)
+        self.fps = fps
         self.dimensions = dimensions
         self.font = pygame.font.Font(
             path.join(self.abs_path, 'assets', 'VT323-Regular.ttf'), 24)
@@ -59,16 +37,18 @@ class LunarLanderGame:
         self.difficulty = difficulty
 
     def start_game(self) -> None:
+        self.start_time = datetime.now()
         self.user_score = None
         self.lander: PlayerLander = PlayerLander(
             x_pos=int(1),
             y_pos=int(self.dimensions[1] / 4),
-            angle=0.0,
+            angle=90.0,
+            angular_velocity=self.difficulty.starting_angular_velocity,
             strength=0.25,
-            fuel_level=self.difficulty.fuel_level,
             max_velocity=self.difficulty.max_speed,
+            heat_coefficient=self.difficulty.heat_coefficient,
             window_dimensions=self.dimensions,
-            gravity=(0.0253/self.delay),
+            gravity=(self.difficulty.gravity/int(1000 / self.fps)),
             image_path=path.join(self.abs_path, 'assets', 'lander.png'))
         self.lander.x_vel = self.difficulty.starting_velocity
 
@@ -85,19 +65,25 @@ class LunarLanderGame:
         with open(self.scores_path, 'w') as f:
             json.dump(high_scores, f, indent=4)
 
+    def calculate_flight_time(self) -> None:
+        if not self.lander.landed:  # only update flight time if the lander hasn't landed
+            self.flight_time = round(
+                (datetime.now() - self.start_time).total_seconds(), 2)
+
     def generate_text(self, x_pos: int, y_pos: int, spacing: int = 20) -> None:
+        combined_velocity = abs(self.lander.x_vel) + abs(self.lander.y_vel)
+        velocity_color = red if combined_velocity > self.lander.max_velocity else white  # noqa
+
         # X VELOCITY
         x_vel_text = f'X velocity: {round(self.lander.x_vel, 2)}'
-        x_vel_color = red if abs(self.lander.x_vel) > self.lander.max_velocity else white  # noqa
-        x_vel_render = self.font.render(x_vel_text, True, x_vel_color)
+        x_vel_render = self.font.render(x_vel_text, True, velocity_color)
         self.canvas.blit(x_vel_render, (x_pos, y_pos))
 
         y_pos += spacing
 
         # Y VELOCITY
         y_vel_text = f'Y velocity: {round(self.lander.y_vel, 2)}'
-        y_vel_color = red if abs(self.lander.y_vel) > self.lander.max_velocity else white  # noqa
-        y_vel_render = self.font.render(y_vel_text, True, y_vel_color)
+        y_vel_render = self.font.render(y_vel_text, True, velocity_color)
         self.canvas.blit(y_vel_render, (x_pos, y_pos))
 
         y_pos += spacing
@@ -118,6 +104,13 @@ class LunarLanderGame:
 
         y_pos += spacing
 
+        # FLIGHT TIME
+        flight_time_text = f'Flight Time: {round(self.flight_time, 2)}'
+        flight_time_render = self.font.render(flight_time_text, True, white)
+        self.canvas.blit(flight_time_render, (x_pos, y_pos))
+
+        y_pos += spacing
+
         # FUEL BAR
         fuel_bar_length = 100
         fuel_bar_height = 15
@@ -133,11 +126,34 @@ class LunarLanderGame:
         pygame.draw.rect(self.canvas, white, fill_rect)
         pygame.draw.rect(self.canvas, white, outline_rect, 2)
 
+        y_pos += spacing
+
+        # HEAT BAR
+        heat_bar_length = 100
+        heat_bar_height = 15
+
+        heat_color = red if self.lander.heat > 80.0 else white
+        heat_render = self.font.render('Heat:', True, heat_color)
+        self.canvas.blit(heat_render, (x_pos, y_pos))
+
+        heat_fill = int((self.lander.heat / self.lander.max_heat) * heat_bar_length)  # noqa
+        outline_rect = pygame.Rect(
+            x_pos + 50, y_pos + 6, heat_bar_length, heat_bar_height)
+        heat_fill_rect = pygame.Rect(
+            x_pos + 50, y_pos + 6, heat_fill, heat_bar_height)
+        pygame.draw.rect(self.canvas, heat_color, heat_fill_rect)
+        pygame.draw.rect(self.canvas, heat_color, outline_rect, 2)
+
         if self.user_score is not None:
             self.display_score(self.user_score)
 
     def generate_graphics(self) -> None:
         self.canvas.fill(self.background)
+
+        # create ground
+        pygame.draw.rect(
+            self.canvas, white,
+            (0, self.dimensions[1] - 25, self.dimensions[0], 25))
 
         all_sprites = pygame.sprite.Group(self.lander)
         all_sprites.update()
@@ -154,10 +170,15 @@ class LunarLanderGame:
             score_text = [
                 'THE EAGLE HAS LANDED!',
                 f'Total Flight Time: {score.flight_time}',
-                f'Remaining Fuel: {score.fuel_remaining}',
-                f'Achievements: {", ".join(score.achievements)}',
-                f'Score: {score.score}',
+                f'Remaining Fuel: {score.fuel_remaining}'
             ]
+
+            if len(score.achievements) > 0:
+                score_text.append(
+                    f'Achievements: {", ".join(score.achievements)}',
+                )
+
+            score_text.append(f'Final Score: {score.score}')
 
         score_text.extend(['', 'Press "R" to play again', 'Press "Q" to quit'])
 
@@ -198,25 +219,37 @@ class LunarLanderGame:
         self.start_game()
 
         while self.game_loop:
-            # pygame.time.delay(self.delay)  # 10 ms
 
+            if self.lander.landed and self.user_score is None:
+                self.user_score: ScoreEntry = ScoreEntry(
+                    name='Player 1',
+                    flight_time=self.flight_time,
+                    fuel_remaining=round(self.lander.fuel_remaining, 2),
+                    heat=round(self.lander.heat, 2),
+                    difficulty_settings=self.difficulty,
+                    crashed=self.lander.crashed)
+
+                self.user_score.calculate_score()
+
+                self.high_scores.append(self.user_score.as_dict())
+
+            self.calculate_flight_time()
             self.handle_events()
             self.generate_graphics()
             self.generate_text(x_pos=10, y_pos=10)
 
             pygame.display.flip()
 
-            if self.lander.landed and self.user_score is None:
-                self.user_score: ScoreEntry = self.lander.calculate_score('Player 1')  # noqa
-                self.high_scores.append(self.user_score.as_dict())
-
-            pygame.time.Clock().tick(60)
+            pygame.time.Clock().tick(self.fps)
 
         self.write_high_scores()
 
 
 if __name__ == "__main__":
-    settings = DifficultySettings(1)
+    settings = DifficultySettings(difficulty_setting=1)
+
+    print(settings.__dict__)
+
     lander = LunarLanderGame(
         difficulty=settings,
         dimensions=(720, 720),
