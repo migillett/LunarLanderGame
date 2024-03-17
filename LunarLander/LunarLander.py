@@ -9,7 +9,12 @@ import pygame
 
 
 class LunarLanderGame:
-    def __init__(self, difficulty: DifficultySettings, dimensions: tuple[int, int] = (720, 720), fps: int = 60) -> None:
+    def __init__(
+            self, difficulty: DifficultySettings,
+            dimensions: tuple[int, int] = (720, 720),
+            fps: int = 60,
+            enable_scores: bool = False) -> None:
+
         pygame.init()
         pygame.display.set_caption('Lunar Lander')
         pygame.font.init()
@@ -30,6 +35,7 @@ class LunarLanderGame:
         self.canvas = pygame.display.set_mode(self.dimensions)
 
         # high score settings
+        self.enable_scores: bool = enable_scores
         self.user_score: ScoreEntry | None = None
         self.scores_path = path.join(self.abs_path, 'high_scores.json')
         self.high_scores: list[ScoreEntry] = []
@@ -53,17 +59,18 @@ class LunarLanderGame:
         self.lander.x_vel = self.difficulty.starting_velocity
 
     def load_high_scores(self) -> None:
-        if path.exists(self.scores_path):
+        if self.enable_scores and path.exists(self.scores_path):
             with open(self.scores_path, 'r') as f:
                 self.high_scores: list[ScoreEntry] = json.load(f)
 
     def write_high_scores(self) -> None:
-        high_scores = sorted(
-            self.high_scores, key=lambda x: x['score'], reverse=True)
-        if len(high_scores) > 10:
-            high_scores = high_scores[:10]
-        with open(self.scores_path, 'w') as f:
-            json.dump(high_scores, f, indent=4)
+        if self.enable_scores:
+            high_scores = sorted(
+                self.high_scores, key=lambda x: x['score'], reverse=True)
+            if len(high_scores) > 10:
+                high_scores = high_scores[:10]
+            with open(self.scores_path, 'w') as f:
+                json.dump(high_scores, f, indent=4)
 
     def calculate_flight_time(self) -> None:
         if not self.lander.landed:  # only update flight time if the lander hasn't landed
@@ -253,5 +260,7 @@ if __name__ == "__main__":
     lander = LunarLanderGame(
         difficulty=settings,
         dimensions=(720, 720),
-        fps=60)
+        fps=60,
+        enable_scores=False)
+
     lander.run()
