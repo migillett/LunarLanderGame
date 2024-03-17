@@ -25,6 +25,9 @@ jobs:
       - name: Create Executable
         run: pyinstaller --onefile --hidden-import=pygame --add-data "./LunarLander/assets:assets" --add-data "./LunarLander/functions:functions" --noconsole ./LunarLander/LunarLander.py
 
+      - name: List directory
+        run: ls -al ./dist/
+
       - name: Upload Executable
         uses: actions/upload-artifact@v2
         with:
