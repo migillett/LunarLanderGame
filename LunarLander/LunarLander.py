@@ -187,7 +187,11 @@ class LunarLanderGame:
 
             score_text.append(f'Final Score: {score.score}')
 
-        score_text.extend(['', 'Press "R" to play again', 'Press "Q" to quit'])
+        score_text.extend([
+            '',
+            'Press "R" to play again',
+            'Press "Q" to quit',
+            'Press "P" to take a screenshot and share'])
 
         current_y = (self.dimensions[1] // 2) - 100
 
