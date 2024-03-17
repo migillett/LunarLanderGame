@@ -220,6 +220,11 @@ class LunarLanderGame:
             # quit
             self.game_loop = False
 
+        # take a screenshot of the canvas
+        if keys[pygame.K_p]:
+            filename = f"LunarLander_{datetime.now().timestamp()}.jpeg"
+            pygame.image.save(self.canvas, filename)
+
     def run(self) -> None:
         self.load_high_scores()
 
