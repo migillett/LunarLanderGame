@@ -9,7 +9,12 @@ import pygame
 
 
 class LunarLanderGame:
-    def __init__(self, difficulty: DifficultySettings, dimensions: tuple[int, int] = (720, 720), fps: int = 60) -> None:
+    def __init__(
+            self, difficulty: DifficultySettings,
+            dimensions: tuple[int, int] = (720, 720),
+            fps: int = 60,
+            enable_scores: bool = False) -> None:
+
         pygame.init()
         pygame.display.set_caption('Lunar Lander')
         pygame.font.init()
@@ -30,6 +35,7 @@ class LunarLanderGame:
         self.canvas = pygame.display.set_mode(self.dimensions)
 
         # high score settings
+        self.enable_scores: bool = enable_scores
         self.user_score: ScoreEntry | None = None
         self.scores_path = path.join(self.abs_path, 'high_scores.json')
         self.high_scores: list[ScoreEntry] = []
@@ -46,24 +52,25 @@ class LunarLanderGame:
             angular_velocity=self.difficulty.starting_angular_velocity,
             strength=0.25,
             max_velocity=self.difficulty.max_speed,
+            abs_path=self.abs_path,
             heat_coefficient=self.difficulty.heat_coefficient,
             window_dimensions=self.dimensions,
-            gravity=(self.difficulty.gravity/int(1000 / self.fps)),
-            image_path=path.join(self.abs_path, 'assets', 'lander.png'))
+            gravity=(self.difficulty.gravity/int(1000 / self.fps)))
         self.lander.x_vel = self.difficulty.starting_velocity
 
     def load_high_scores(self) -> None:
-        if path.exists(self.scores_path):
+        if self.enable_scores and path.exists(self.scores_path):
             with open(self.scores_path, 'r') as f:
                 self.high_scores: list[ScoreEntry] = json.load(f)
 
     def write_high_scores(self) -> None:
-        high_scores = sorted(
-            self.high_scores, key=lambda x: x['score'], reverse=True)
-        if len(high_scores) > 10:
-            high_scores = high_scores[:10]
-        with open(self.scores_path, 'w') as f:
-            json.dump(high_scores, f, indent=4)
+        if self.enable_scores:
+            high_scores = sorted(
+                self.high_scores, key=lambda x: x['score'], reverse=True)
+            if len(high_scores) > 10:
+                high_scores = high_scores[:10]
+            with open(self.scores_path, 'w') as f:
+                json.dump(high_scores, f, indent=4)
 
     def calculate_flight_time(self) -> None:
         if not self.lander.landed:  # only update flight time if the lander hasn't landed
@@ -150,14 +157,14 @@ class LunarLanderGame:
     def generate_graphics(self) -> None:
         self.canvas.fill(self.background)
 
-        # create ground
+        # draw the ground
         pygame.draw.rect(
             self.canvas, white,
             (0, self.dimensions[1] - 25, self.dimensions[0], 25))
 
-        all_sprites = pygame.sprite.Group(self.lander)
-        all_sprites.update()
-        all_sprites.draw(self.canvas)
+        # draw the lander
+        lander_sprite, x_pos, y_pos = self.lander.update()
+        self.canvas.blit(lander_sprite, (x_pos, y_pos))
 
     def display_score(self, score: ScoreEntry) -> None:
         if self.lander.crashed:
@@ -180,7 +187,9 @@ class LunarLanderGame:
 
             score_text.append(f'Final Score: {score.score}')
 
-        score_text.extend(['', 'Press "R" to play again', 'Press "Q" to quit'])
+        score_text.extend(
+            ['', 'Press "R" to play again', 'Press "Q" to quit']
+        )
 
         current_y = (self.dimensions[1] // 2) - 100
 
@@ -248,10 +257,10 @@ class LunarLanderGame:
 if __name__ == "__main__":
     settings = DifficultySettings(difficulty_setting=1)
 
-    print(settings.__dict__)
-
     lander = LunarLanderGame(
         difficulty=settings,
         dimensions=(720, 720),
-        fps=60)
+        fps=60,
+        enable_scores=False)
+
     lander.run()

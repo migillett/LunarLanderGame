@@ -1,5 +1,6 @@
 import pygame
 import math
+from os import path
 
 from functions.data_structures import *
 
@@ -30,7 +31,7 @@ class PlayerLander(pygame.sprite.Sprite):
             self, x_pos: int, y_pos: int, angle: float,
             angular_velocity: float,
             strength: float, heat_coefficient: float,
-            max_velocity: float, image_path: str,
+            max_velocity: float, abs_path: str,
             window_dimensions: tuple[int, int],
             gravity: float) -> None:
         super().__init__()
@@ -44,18 +45,25 @@ class PlayerLander(pygame.sprite.Sprite):
         self.max_velocity = max_velocity
         self.window_dimensions = window_dimensions
 
-        self.original_sprite: pygame.image = self.load_sprite(image_path, 50)
-        self.sprite = self.original_sprite.copy()
-        self.rect = self.original_sprite.get_rect(center=(x_pos, y_pos))
+        self.thruster_state: bool = False
+
+        self.sprite_default: pygame.image = self.load_sprite(
+            path.join(abs_path, 'assets', 'lander', 'lander_default.png'),
+            50)
+        self.sprite_thruster: pygame.image = self.load_sprite(
+            path.join(abs_path, 'assets', 'lander', 'lander_thruster.png'),
+            50)
+
         self.heat_coefficient = heat_coefficient
 
     def load_sprite(self, image_path: str, max_height: int) -> pygame.image:
         sprite = pygame.image.load(image_path)
+
         sprite_width, sprite_height = sprite.get_size()
         scale_factor = max_height / sprite_height
-
         sprite = pygame.transform.scale(
             sprite, (int(sprite_width * scale_factor), int(sprite_height * scale_factor)))
+
         sprite = pygame.transform.rotate(sprite, 90.0)
         return sprite
 
@@ -77,45 +85,42 @@ class PlayerLander(pygame.sprite.Sprite):
 
     def attempt_landing(self) -> None:
         self.landed = True
+        self.rotation_velocity = 0
         # must not be more than 10 degrees off true vertical (which is 270, idk why)
         valid_landing_angle = self.angle > 260 and self.angle < 280
         self.crashed = self.max_velocity <= (
             self.y_vel + self.x_vel) or not valid_landing_angle
 
-    def update(self) -> None:
-        # window_dimensions dimensions are in (x, y)
+    def update(self) -> tuple[pygame.Surface, float, float]:
+        self.angle = (self.angle + self.rotation_velocity) % 360
+        sprite_copy = pygame.transform.rotate(self.sprite_default, self.angle)
 
-        sprite_width, sprite_height = self.sprite.get_size()
+        sprite_width, sprite_height = sprite_copy.get_size()
 
         x_min = 0 - sprite_width
         x_max = self.window_dimensions[0] + sprite_width
 
         # if ship is on the boundary bottom, stop all movement (landed)
-        if self.y_pos >= self.window_dimensions[1] - sprite_height:
-            if not self.landed:
-                self.attempt_landing()
+        if self.y_pos >= self.window_dimensions[1] - sprite_height and not self.landed:
+            self.attempt_landing()
 
-            # self.y_pos = window_dimensions[1] - sprite_height
-            self.y_vel = 0
-            self.x_vel = 0
-            return
+        elif not self.landed:
+            # check if sprite is outside of boundary X fields
+            if self.x_pos < x_min:
+                self.x_pos = x_max - 1
+            elif self.x_pos > x_max:
+                self.x_pos = x_min + 1
 
-        # check if sprite is outside of boundary X fields
-        if self.x_pos < x_min:
-            self.x_pos = x_max - 1
-        elif self.x_pos > x_max:
-            self.x_pos = x_min + 1
+            heat_reduce = self.heat - (self.heat_coefficient / 10)
+            self.heat = heat_reduce if heat_reduce > 0 else 0
 
-        heat_reduce = self.heat - (self.heat_coefficient / 10)
-        self.heat = heat_reduce if heat_reduce > 0 else 0
+            self.y_vel += self.gravity
 
-        self.y_vel += self.gravity
+            self.y_pos += self.y_vel
+            self.x_pos += self.x_vel
 
-        self.y_pos += self.y_vel
-        self.x_pos += self.x_vel
-        self.angle = (self.angle + self.rotation_velocity) % 360
-
-        self.image = pygame.transform.rotate(
-            self.original_sprite, self.angle)
-
-        self.rect.center = (self.x_pos, self.y_pos)
+        return (
+            sprite_copy,
+            self.x_pos - int(sprite_width / 2),
+            self.y_pos - int(sprite_height / 2)
+        )

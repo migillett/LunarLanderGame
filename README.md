@@ -16,3 +16,6 @@ To start the game, simply run the LunarLander.py file using Python 3.8 or later.
 ```bash
 python LunarLander.py
 ```
+
+# Sprites and Assets
+This project includes [sprites](https://opengameart.org/content/apollo-moon-landing-sprites) and [music](https://opengameart.org/content/8-bit-sound-fx) created by [Dizzy Crow](https://opengameart.org/users/dizzy-crow) from the OpenGameArt archive.
