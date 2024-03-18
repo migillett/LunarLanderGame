@@ -1,41 +1,43 @@
-name: Windows Executable
+# Disabling for now
 
-on:
-  push:
-    branches:
-      - main
+# name: Windows Executable
 
-jobs:
-  build:
-    runs-on: windows-latest
+# on:
+#   push:
+#     branches:
+#       - main
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+# jobs:
+#   build:
+#     runs-on: windows-latest
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.12"
-          architecture: "x64"
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
 
-      - name: Pull pyinstaller source
-        run: git clone https://github.com/pyinstaller/pyinstaller
+#       - name: Set up Python
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: "3.12"
+#           architecture: "x64"
 
-      - name: Compile pyinstaller
-        run: pip install .\pyinstaller
+#       - name: Pull pyinstaller source
+#         run: git clone https://github.com/pyinstaller/pyinstaller
 
-      - name: Verify pyinstaller installation
-        run: pyinstaller --version
+#       - name: Compile pyinstaller
+#         run: pip install .\pyinstaller
 
-      - name: Install dependencies
-        run: python -m pip install -r requirements.txt
+#       - name: Verify pyinstaller installation
+#         run: pyinstaller --version
 
-      - name: Create executable
-        run: pyinstaller --onedir --hidden-import=pygame --add-data ".\LunarLander\assets;assets" --noconsole .\LunarLander\LunarLander.py
+#       - name: Install dependencies
+#         run: python -m pip install -r requirements.txt
 
-      - name: Upload executable
-        uses: actions/upload-artifact@v2
-        with:
-          name: LunarLander
-          path: .\dist\LunarLander
+#       - name: Create executable
+#         run: pyinstaller --onedir --hidden-import=pygame --add-data ".\LunarLander\assets;assets" --noconsole .\LunarLander\LunarLander.py
+
+#       - name: Upload executable
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: LunarLander
+#           path: .\dist\LunarLander

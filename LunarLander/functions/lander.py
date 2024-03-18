@@ -75,6 +75,7 @@ class PlayerLander(pygame.sprite.Sprite):
 
     def fire_thruster(self) -> None:
         if self.fuel_remaining > 0 and self.heat < self.max_heat and not self.landed:
+            self.thruster_state = True
             self.fuel_remaining -= self.thruster_strength
             angle_radians = math.radians(self.angle)
             force_x = self.thruster_strength * math.cos(angle_radians)
@@ -93,7 +94,13 @@ class PlayerLander(pygame.sprite.Sprite):
 
     def update(self) -> tuple[pygame.Surface, float, float]:
         self.angle = (self.angle + self.rotation_velocity) % 360
-        sprite_copy = pygame.transform.rotate(self.sprite_default, self.angle)
+        if self.thruster_state:
+            sprite_copy = pygame.transform.rotate(
+                self.sprite_thruster, self.angle)
+            self.thruster_state = False
+        else:
+            sprite_copy = pygame.transform.rotate(
+                self.sprite_default, self.angle)
 
         sprite_width, sprite_height = sprite_copy.get_size()
 

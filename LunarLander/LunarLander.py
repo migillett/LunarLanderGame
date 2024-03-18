@@ -166,6 +166,14 @@ class LunarLanderGame:
         lander_sprite, x_pos, y_pos = self.lander.update()
         self.canvas.blit(lander_sprite, (x_pos, y_pos))
 
+        # TODO - draw astronauts on successful landing
+        # if self.lander.landed and not self.lander.crashed:
+        #     astronauts_sprite = pygame.image.load(
+        #         path.join(self.abs_path, 'assets', 'astronauts.png'))
+        #     astronauts_sprite = pygame.transform.scale(
+        #         astronauts_sprite, (100, 100))
+        #     self.canvas.blit(astronauts_sprite, (x_pos, y_pos - 100))
+
     def display_score(self, score: ScoreEntry) -> None:
         if self.lander.crashed:
             score_text = [
