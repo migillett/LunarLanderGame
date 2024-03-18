@@ -76,6 +76,10 @@ class ScoreEntry:
             # nothing but fumes - land successfully with with no fuel remaining
             cls.score += 1000
             cls.achievements.append("Nothing but fumes")
+        elif cls.fuel_remaining >= 90.0:
+            # Fuel efficient
+            cls.score += 600
+            cls.achievements.append("Fuel efficient")
 
         if cls.flight_time <= 30.0:
             # No time for chit-chat - land successfully in less than 30 seconds
@@ -90,8 +94,8 @@ class ScoreEntry:
             # coming in hot - land successfully with heat above 95%
             cls.score += 600
             cls.achievements.append("Coming in hot")
-        elif cls.heat <= 1.0:
-            # cool as a cucumber - land with less than 1% heat
+        elif cls.heat <= 2.5:
+            # cool as a cucumber - land with less than 2.5% heat
             cls.score += 1000
             cls.achievements.append("Cool as a cucumber")
 

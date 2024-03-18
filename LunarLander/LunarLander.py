@@ -157,22 +157,36 @@ class LunarLanderGame:
     def generate_graphics(self) -> None:
         self.canvas.fill(self.background)
 
+        ground_start = self.dimensions[1] - 25
+
         # draw the ground
         pygame.draw.rect(
             self.canvas, white,
-            (0, self.dimensions[1] - 25, self.dimensions[0], 25))
+            (0, ground_start, self.dimensions[0], 25))
 
         # draw the lander
         lander_sprite, x_pos, y_pos = self.lander.update()
         self.canvas.blit(lander_sprite, (x_pos, y_pos))
 
         # TODO - draw astronauts on successful landing
-        # if self.lander.landed and not self.lander.crashed:
-        #     astronauts_sprite = pygame.image.load(
-        #         path.join(self.abs_path, 'assets', 'astronauts.png'))
-        #     astronauts_sprite = pygame.transform.scale(
-        #         astronauts_sprite, (100, 100))
-        #     self.canvas.blit(astronauts_sprite, (x_pos, y_pos - 100))
+        if self.lander.landed and not self.lander.crashed:
+            astronauts_sprite = pygame.image.load(
+                path.join(self.abs_path, 'assets', 'astronauts.png'))
+
+            scale_factor = 50 / astronauts_sprite.get_width()
+            astronauts_sprite = pygame.transform.scale(
+                astronauts_sprite, (
+                    int(astronauts_sprite.get_width() * scale_factor),
+                    int(astronauts_sprite.get_height() * scale_factor)
+                )
+            )
+
+            self.canvas.blit(
+                astronauts_sprite, (
+                    x_pos - 50,
+                    ground_start - astronauts_sprite.get_height()
+                )
+            )
 
     def display_score(self, score: ScoreEntry) -> None:
         if self.lander.crashed:
@@ -195,9 +209,12 @@ class LunarLanderGame:
 
             score_text.append(f'Final Score: {score.score}')
 
-        score_text.extend(
-            ['', 'Press "R" to play again', 'Press "Q" to quit']
-        )
+        score_text.extend([
+            '',
+            'Press "P" to take a screenshot'
+            'Press "R" to play again',
+            'Press "Q" to quit',
+        ])
 
         current_y = (self.dimensions[1] // 2) - 100
 
@@ -224,6 +241,14 @@ class LunarLanderGame:
         # restart
         if keys[pygame.K_r]:
             self.start_game()
+
+        # take screenshot
+        if keys[pygame.K_p]:
+            filename = f'LunarLander_{datetime.now().strftime("%Y%m%d%H%M%S")}.png'
+            pygame.image.save(
+                self.canvas,
+                path.join(self.abs_path, filename)
+            )
 
         # quit
         if keys[pygame.K_q]:

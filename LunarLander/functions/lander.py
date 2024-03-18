@@ -67,14 +67,18 @@ class PlayerLander(pygame.sprite.Sprite):
         sprite = pygame.transform.rotate(sprite, 90.0)
         return sprite
 
+    def thruster_conditions(self) -> bool:
+        # function to check if thruster can be fired
+        return self.fuel_remaining > 0 and self.heat < self.max_heat and not self.landed
+
     def fire_rcs(self, rcs_force: float) -> None:
-        if self.fuel_remaining > 0 and self.heat < self.max_heat:
+        if self.thruster_conditions():
             self.fuel_remaining -= self.thruster_strength
             self.rotation_velocity += rcs_force
             self.heat += self.heat_coefficient
 
     def fire_thruster(self) -> None:
-        if self.fuel_remaining > 0 and self.heat < self.max_heat and not self.landed:
+        if self.thruster_conditions():
             self.thruster_state = True
             self.fuel_remaining -= self.thruster_strength
             angle_radians = math.radians(self.angle)
