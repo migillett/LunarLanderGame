@@ -187,11 +187,9 @@ class LunarLanderGame:
 
             score_text.append(f'Final Score: {score.score}')
 
-        score_text.extend([
-            '',
-            'Press "R" to play again',
-            'Press "Q" to quit',
-            'Press "P" to take a screenshot and share'])
+        score_text.extend(
+            ['', 'Press "R" to play again', 'Press "Q" to quit']
+        )
 
         current_y = (self.dimensions[1] // 2) - 100
 
@@ -223,11 +221,6 @@ class LunarLanderGame:
         if keys[pygame.K_q]:
             # quit
             self.game_loop = False
-
-        # take a screenshot of the canvas
-        if keys[pygame.K_p]:
-            filename = f"LunarLander_{datetime.now().timestamp()}.jpeg"
-            pygame.image.save(self.canvas, filename)
 
     def run(self) -> None:
         self.load_high_scores()
