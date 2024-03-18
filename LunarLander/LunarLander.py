@@ -52,10 +52,10 @@ class LunarLanderGame:
             angular_velocity=self.difficulty.starting_angular_velocity,
             strength=0.25,
             max_velocity=self.difficulty.max_speed,
+            abs_path=self.abs_path,
             heat_coefficient=self.difficulty.heat_coefficient,
             window_dimensions=self.dimensions,
-            gravity=(self.difficulty.gravity/int(1000 / self.fps)),
-            image_path=path.join(self.abs_path, 'assets', 'lander.png'))
+            gravity=(self.difficulty.gravity/int(1000 / self.fps)))
         self.lander.x_vel = self.difficulty.starting_velocity
 
     def load_high_scores(self) -> None:
@@ -157,14 +157,14 @@ class LunarLanderGame:
     def generate_graphics(self) -> None:
         self.canvas.fill(self.background)
 
-        # create ground
+        # draw the ground
         pygame.draw.rect(
             self.canvas, white,
             (0, self.dimensions[1] - 25, self.dimensions[0], 25))
 
-        all_sprites = pygame.sprite.Group(self.lander)
-        all_sprites.update()
-        all_sprites.draw(self.canvas)
+        # draw the lander
+        lander_sprite, x_pos, y_pos = self.lander.update()
+        self.canvas.blit(lander_sprite, (x_pos, y_pos))
 
     def display_score(self, score: ScoreEntry) -> None:
         if self.lander.crashed:
@@ -256,8 +256,6 @@ class LunarLanderGame:
 
 if __name__ == "__main__":
     settings = DifficultySettings(difficulty_setting=1)
-
-    print(settings.__dict__)
 
     lander = LunarLanderGame(
         difficulty=settings,
