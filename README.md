@@ -18,4 +18,4 @@ python LunarLander.py
 ```
 
 # Sprites and Assets
-This project includes [sprites](https://opengameart.org/content/apollo-moon-landing-sprites) and [music](https://opengameart.org/content/8-bit-sound-fx) created by [Dizzy Crow](https://opengameart.org/users/dizzy-crow) from the OpenGameArt archive.
+This project includes [sprites](https://opengameart.org/content/apollo-moon-landing-sprites), [sound effects](https://opengameart.org/content/8-bit-sound-fx), and [music](https://opengameart.org/content/8-bit-jupiter-the-bringer-of-jollity) created by [Dizzy Crow](https://opengameart.org/users/dizzy-crow) from the OpenGameArt archive.
