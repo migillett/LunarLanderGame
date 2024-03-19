@@ -23,6 +23,7 @@ class LunarLanderGame:
         self.flight_time: float = 0.0
 
         self.abs_path = path.dirname(path.abspath(__file__))
+        self.audio_path = path.join(self.abs_path, 'assets', 'audio')
 
         self.game_loop = True
 
@@ -43,6 +44,12 @@ class LunarLanderGame:
         self.difficulty = difficulty
 
     def start_game(self) -> None:
+
+        # load main theme music
+        pygame.mixer.music.load(
+            path.join(self.audio_path, 'main-theme.mp3'))
+        pygame.mixer.music.play(-1)
+
         self.start_time = datetime.now()
         self.user_score = None
         self.lander: PlayerLander = PlayerLander(
@@ -188,6 +195,18 @@ class LunarLanderGame:
                 )
             )
 
+    def audio_landed(self) -> None:
+        if not self.lander.crashed:
+            audio_path = path.join(
+                self.audio_path, 'victory', 'VictorySmall.wav')
+        else:
+            audio_path = path.join(
+                self.audio_path, 'explosions', 'Explosion3.wav')
+
+        landing_audio = pygame.mixer.Sound(audio_path)
+        pygame.mixer.music.stop()
+        pygame.mixer.Sound.play(landing_audio)
+
     def display_score(self, score: ScoreEntry) -> None:
         if self.lander.crashed:
             score_text = [
@@ -211,7 +230,7 @@ class LunarLanderGame:
 
         score_text.extend([
             '',
-            'Press "P" to take a screenshot'
+            'Press "P" to take a screenshot',
             'Press "R" to play again',
             'Press "Q" to quit',
         ])
@@ -272,8 +291,9 @@ class LunarLanderGame:
                     crashed=self.lander.crashed)
 
                 self.user_score.calculate_score()
-
                 self.high_scores.append(self.user_score.as_dict())
+
+                self.audio_landed()
 
             self.calculate_flight_time()
             self.handle_events()
