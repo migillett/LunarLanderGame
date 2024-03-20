@@ -4,14 +4,9 @@
  ![Game Screenshot](game_screenshot.png)
 
 # Installation
-This program depends on the [pygame](https://www.pygame.org/news) library. You can install it with pip:
-```bash
-pip install pygame
-```
-Alternatively, you can install using the requirements.txt file:
-```bash
-pip install -r ./LunarLander/requirements.txt
-```
+1. Install Python version 3.8 or newer. You can download that directly from the [Python website](https://www.python.org/downloads/).
+2. Clone this repository using `git clone migillett/LunarLanderGame`.
+3. Install dependencies using `pip install -r ./LunarLander/requirements.txt`
 
 # Starting the Game
 To start the game, simply run the LunarLander.py file using Python 3.8 or later. For example, from the command line, you can run the following command from the LunarLander directory:
