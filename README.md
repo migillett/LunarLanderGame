@@ -1,6 +1,8 @@
 # LunarLanderGame
  A little Pygame to land the LEM on the Moon.
 
+ ![Game Screenshot](game_screenshot.png)
+
 # Installation
 This program depends on the [pygame](https://www.pygame.org/news) library. You can install it with pip:
 ```bash
