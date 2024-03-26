@@ -16,3 +16,10 @@ python LunarLander.py
 
 # Sprites and Assets
 This project includes [sprites](https://opengameart.org/content/apollo-moon-landing-sprites), [sound effects](https://opengameart.org/content/8-bit-sound-fx), and [music](https://opengameart.org/content/8-bit-jupiter-the-bringer-of-jollity) created by [Dizzy Crow](https://opengameart.org/users/dizzy-crow) from the [OpenGameArt archive](https://opengameart.org/).
+
+# To Do List
+- Balance the scores a bit more based on difficulty
+- Add in more landing sites that increase in difficulty and score mulipliers
+- Add in lunar lander skins
+- Lunar lander upgrades?
+- Compile for Windows, Mac OS and Linux
