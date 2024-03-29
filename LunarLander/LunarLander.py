@@ -15,17 +15,18 @@ class LunarLanderGame:
             fps: int = 60,
             enable_scores: bool = False) -> None:
 
-        pygame.init()
-        pygame.display.set_caption('Lunar Lander')
-        pygame.font.init()
-
-        self.start_time: datetime = datetime.now()
-        self.flight_time: float = 0.0
-
         self.abs_path = path.dirname(path.abspath(__file__))
         self.audio_path = path.join(self.abs_path, 'assets', 'audio')
 
-        self.game_state: str | None = 'run'
+        pygame.init()
+        pygame.display.set_caption('Lunar Lander')
+        pygame.font.init()
+        pygame.display.set_icon(pygame.image.load(
+            path.join(self.abs_path, 'assets', 'lander', 'lander_default.png')))
+
+        self.game_state: str | None = 'run'  # TODO - add main_menu state
+        self.start_time: datetime = datetime.now()
+        self.flight_time: float = 0.0
 
         # game_loop_init (and difficulty) goes up by 1 every successful landing
         self.game_loop_int: int = 1
@@ -89,15 +90,19 @@ class LunarLanderGame:
                 (datetime.now() - self.start_time).total_seconds(), 2)
 
     def main_menu(self) -> None:
+        # TODO - Fix this
+        self.canvas.fill(self.background)
         menu_text = [
             self.font.render('LUNAR LANDER', True, white),
             self.font.render('Press any button to continue...', True, white)
         ]
 
+        spacing = len(menu_text) * 30
+        start_y = (self.dimensions[1] // 2) - spacing
         for text in menu_text:
             title_rect = text.get_rect(
-                center=(self.dimensions[0] // 2, self.dimensions[1] // 2)
-            )
+                center=(self.dimensions[0] // 2, start_y))
+            start_y += spacing
             self.canvas.blit(text, title_rect)
 
     def render_overheat_warning(self) -> None:
