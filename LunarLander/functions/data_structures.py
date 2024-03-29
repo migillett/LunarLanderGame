@@ -18,44 +18,26 @@ class DifficultySettings:
     def __init__(cls, difficulty_setting: int = 1) -> None:
         # default settings
         cls.difficulty_preset = difficulty_setting
-        cls.max_speed = 2.0
+        cls.max_speed = 1.5
         cls.starting_velocity = 1.0
         cls.starting_angular_velocity = 0.0
+        cls.gravity = 0.0253
 
         if cls.difficulty_preset == 1:
             # Moon: less gravity, less heat
             cls.difficulty_name = "Moon"
-            cls.gravity = 0.0253
             cls.heat_coefficient = 1.0
             cls.score_multiplier = 1.0
 
         elif cls.difficulty_preset == 2:
             # Moon: same as 1, but with a curveball for angular velocity and starting velocity
             cls.difficulty_name = "Curveball Moon"
-            cls.gravity = 0.0253
             cls.starting_angular_velocity = float(randint(-5, 5))
             cls.starting_velocity = float(randint(0, 2))
             cls.heat_coefficient = 2.0
             cls.score_multiplier = 2.0
 
         print(f'Loaded difficulty: {cls.__dict__}')
-
-        # elif cls.difficulty_preset == 3:
-        #     # Earth: standard gravity, even hotter
-        #     cls.difficulty_name = "Earth"
-        #     cls.gravity = 9.81
-        #     cls.heat_coefficient = 4.0
-        #     cls.score_multiplier = 4.0
-
-        # elif difficulty_setting == 3:  # earth?
-        #     cls.difficulty_preset = 3
-
-        # elif difficulty_setting == 4: # ???
-        #     cls.difficulty_preset = 4
-
-        # elif difficulty_setting == 69:  # for testing
-        #     cls.difficulty_preset = 69
-        #     cls.max_speed = 99999999999
 
 
 @dataclass
@@ -83,14 +65,18 @@ class ScoreEntry:
             cls.score += 600
             cls.achievements.append("Fuel efficient")
 
-        if cls.flight_time <= 30.0:
+        if cls.flight_time <= 20.0:
             # No time for chit-chat - land successfully in less than 30 seconds
             cls.score += 600
             cls.achievements.append("No time for chit-chat")
         elif int(cls.flight_time) == 69:
-            # huhu, nice
+            # huhuhu nice
             cls.score += 69
             cls.achievements.append("Nice")
+        elif int(cls.flight_time) >= 120:
+            # Dilly-dallying - land successfully after more than 120 seconds
+            cls.score += 300
+            cls.achievements.append("Dilly-dallying")
 
         if cls.heat >= 95.0:
             # coming in hot - land successfully with heat above 95%

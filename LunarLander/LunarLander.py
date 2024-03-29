@@ -15,7 +15,7 @@ class LunarLanderGame:
             fps: int = 60,
             enable_scores: bool = False) -> None:
 
-        version = '1.0.1'
+        version = '1.0.2'
 
         self.abs_path = path.dirname(path.abspath(__file__))
         self.audio_path = path.join(self.abs_path, 'assets', 'audio')
