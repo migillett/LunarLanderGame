@@ -15,11 +15,13 @@ class LunarLanderGame:
             fps: int = 60,
             enable_scores: bool = False) -> None:
 
+        version = '1.0.1'
+
         self.abs_path = path.dirname(path.abspath(__file__))
         self.audio_path = path.join(self.abs_path, 'assets', 'audio')
 
         pygame.init()
-        pygame.display.set_caption('Lunar Lander')
+        pygame.display.set_caption(f'Lunar Lander | {version}')
         pygame.font.init()
         pygame.display.set_icon(pygame.image.load(
             path.join(self.abs_path, 'assets', 'lander', 'lander_default.png')))
