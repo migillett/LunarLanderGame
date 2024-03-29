@@ -105,7 +105,7 @@ class LunarLanderGame:
         if not self.lander.landed:
             if self.lander.thruster_on_cooldown():
                 warning_text = 'MANDATORY THRUSTER COOLDOWN'
-            elif self.lander.heat >= 80.0:
+            elif self.lander.heat >= (self.lander.max_heat * 0.8):
                 warning_text = 'WARNING: HIGH HEAT!'
 
         warning_render = self.font.render(warning_text, True, red)
@@ -192,6 +192,14 @@ class LunarLanderGame:
             x_pos + 50, y_pos + 6, heat_fill, heat_bar_height)
         pygame.draw.rect(self.canvas, heat_color, heat_fill_rect)
         pygame.draw.rect(self.canvas, heat_color, outline_rect, 2)
+
+        # COOLDOWN TIMER
+        if self.lander.thruster_on_cooldown():
+            timer = self.lander.cooldown_period - (
+                datetime.now() - self.lander.overheat_timestamp)
+            cooldown_timer = self.font.render(
+                f'Thruster Cooldown: {round(timer.total_seconds(), 2)}', True, red)
+            self.canvas.blit(cooldown_timer, (x_pos, y_pos + spacing))
 
     def render_graphics(self) -> None:
         self.canvas.fill(self.background)
@@ -312,7 +320,8 @@ class LunarLanderGame:
 
         # If landed successfully, allow user to go to next stage
         if self.user_score is not None and keys[pygame.K_SPACE]:
-            self.game_loop_int += 1
+            # TODO - disabling for now till I figure out additive difficulty
+            # self.game_loop_int += 1
             self.init_game()
 
         # restart

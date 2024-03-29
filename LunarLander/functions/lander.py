@@ -47,9 +47,8 @@ class PlayerLander(pygame.sprite.Sprite):
         self.window_dimensions = window_dimensions
 
         # OVERHEATING
-        self.overheat_timestamp: datetime | None = None
-        self.overheat_cooldown: timedelta = timedelta(seconds=5)
-
+        self.overheat_timestamp = datetime.now() - timedelta(seconds=10)
+        self.cooldown_period: timedelta = timedelta(seconds=5)
         self.thruster_state: bool = False
 
         self.sprite_default: pygame.image = self.load_sprite(
@@ -74,10 +73,8 @@ class PlayerLander(pygame.sprite.Sprite):
 
     def thruster_on_cooldown(self) -> bool:
         # returns True if thursters CANNOT be fired
-        if self.overheat_timestamp is not None:
-            difference = datetime.now() - self.overheat_timestamp
-            return difference < self.overheat_cooldown
-        return False
+        difference = datetime.now() - self.overheat_timestamp
+        return difference <= self.cooldown_period
 
     def thruster_conditions(self) -> bool:
         # return True if thrusters CAN be fired
@@ -85,7 +82,6 @@ class PlayerLander(pygame.sprite.Sprite):
         if self.heat >= self.max_heat:
             # if heat reaches the max, set overheat timestamp to now
             self.overheat_timestamp = datetime.now()
-            return False
 
         return (
             self.fuel_remaining > 0 and
