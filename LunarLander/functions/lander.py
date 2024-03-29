@@ -1,6 +1,7 @@
 import pygame
 import math
 from os import path
+from datetime import timedelta
 
 from functions.data_structures import *
 
@@ -45,6 +46,9 @@ class PlayerLander(pygame.sprite.Sprite):
         self.max_velocity = max_velocity
         self.window_dimensions = window_dimensions
 
+        # OVERHEATING
+        self.overheat_timestamp = datetime.now() - timedelta(seconds=10)
+        self.cooldown_period: timedelta = timedelta(seconds=5)
         self.thruster_state: bool = False
 
         self.sprite_default: pygame.image = self.load_sprite(
@@ -67,9 +71,22 @@ class PlayerLander(pygame.sprite.Sprite):
         sprite = pygame.transform.rotate(sprite, 90.0)
         return sprite
 
+    def thruster_on_cooldown(self) -> bool:
+        # returns True if thursters CANNOT be fired
+        difference = datetime.now() - self.overheat_timestamp
+        return difference <= self.cooldown_period
+
     def thruster_conditions(self) -> bool:
-        # function to check if thruster can be fired
-        return self.fuel_remaining > 0 and self.heat < self.max_heat and not self.landed
+        # return True if thrusters CAN be fired
+
+        if self.heat >= self.max_heat:
+            # if heat reaches the max, set overheat timestamp to now
+            self.overheat_timestamp = datetime.now()
+
+        return (
+            self.fuel_remaining > 0 and
+            not self.landed and
+            not self.thruster_on_cooldown())
 
     def fire_rcs(self, rcs_force: float) -> None:
         if self.thruster_conditions():

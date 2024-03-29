@@ -38,6 +38,8 @@ class DifficultySettings:
             cls.heat_coefficient = 2.0
             cls.score_multiplier = 2.0
 
+        print(f'Loaded difficulty: {cls.__dict__}')
+
         # elif cls.difficulty_preset == 3:
         #     # Earth: standard gravity, even hotter
         #     cls.difficulty_name = "Earth"
