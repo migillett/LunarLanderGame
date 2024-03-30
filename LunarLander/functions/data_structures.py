@@ -40,23 +40,38 @@ class DifficultySettings:
         print(f'Loaded difficulty: {cls.__dict__}')
 
 
-@dataclass
 class NameEntry:
-    letters: list[str] = [
-        'A', 'B', 'C', 'D', 'E', 'F', 'G',
-        'H', 'I', 'J', 'K', 'L', 'M', 'N',
-        'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-        'V', 'W', 'X', 'Y', 'Z']
-    name: list[int] = [0, 0, 0]
-    selector: int = 0
+    def __init__(self):
+        # list of valid characters for a given name
+        self.letters: list[str] = [
+            'A', 'B', 'C', 'D', 'E', 'F', 'G',
+            'H', 'I', 'J', 'K', 'L', 'M', 'N',
+            'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+            'V', 'W', 'X', 'Y', 'Z']
+        self.name: list[int] = [0, 0, 0]
+        self.selector_index: int = 0
 
-    def name_str(cls) -> str:
-        return ''.join([cls.letters[x] for x in cls.name])
+    def move_selector(self, move_direction: int = 1) -> None:
+        self.selector_index = (
+            self.selector_index + move_direction) % len(self.name)
+        print(f'Selector set to: {self.selector_index}')
+
+    def move_character(self, move_direction: int = 1) -> None:
+        self.name[self.selector_index] = (
+            self.name[self.selector_index] + move_direction) % len(self.letters)
+        print(
+            f'Character {self.selector_index} set to: {self.name[self.selector_index]}')
+
+    def to_str(self) -> str:
+        # returns a concat string of letters in name
+        name = ''.join([self.letters[x] for x in self.name])
+        print(f'User name: {name}')
+        return name
 
 
 @dataclass
 class ScoreEntry:
-    name: NameEntry
+    name: str
     flight_time: float
     fuel_remaining: float
     heat: float
@@ -126,3 +141,5 @@ if __name__ == "__main__":
         difficulty_settings=difficulty)
     score.calculate_score()
     print(score.as_dict())
+
+    print(NameEntry().to_str())

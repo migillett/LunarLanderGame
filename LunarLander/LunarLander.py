@@ -43,18 +43,17 @@ class LunarLanderGame:
         self.canvas = pygame.display.set_mode(self.dimensions)
 
         # high score settings
+        self.user_name = NameEntry()
         self.user_score: ScoreEntry | None = None
         self.scores_path = path.join(self.abs_path, 'high_scores.json')
         self.high_scores: list[ScoreEntry] = []
-
-        self.name = [0, 0, 0]
-
-        self.name_index: int = 0
 
         self.difficulty: DifficultySettings | None = None
 
     def init_game(self) -> None:
         # load main theme music
+        self.user_score = None
+
         pygame.mixer.music.load(
             path.join(self.audio_path, 'main-theme.mp3'))
         pygame.mixer.music.play(-1)
@@ -121,7 +120,7 @@ class LunarLanderGame:
             '',
             f'Score: {self.user_score.score}',
             'Type your name:',
-            self.user_score.name.name_str(),
+            self.user_name.to_str(),
         ]
         self.blit_menu_text(menu_text)
 
@@ -297,8 +296,8 @@ class LunarLanderGame:
             'Press "Q" to Quit',
         ])
 
-        if not self.lander.crashed:
-            score_text.extend(['', 'Press Space to continue to next stage'])
+        # if not self.lander.crashed:
+        #     score_text.extend(['', 'Press Space to continue to next stage'])
 
         self.blit_menu_text(score_text)
 
@@ -313,7 +312,11 @@ class LunarLanderGame:
                 crashed=self.lander.crashed)
 
             self.user_score.calculate_score()
-            self.high_scores.append(self.user_score.as_dict())
+
+            for score in self.high_scores:
+                if self.user_score.score > score:
+                    self.game_state = 'high_score'
+                    break
 
             self.audio_landed()
 
@@ -337,18 +340,18 @@ class LunarLanderGame:
 
         elif self.game_state == 'high_score' and self.user_score is not None:
             if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-                self.name_index = (self.name_index + 1) % 4
+                self.user_name.move_selector(1)
             elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
-                self.name_index = (self.name_index - 1) % 4
+                self.user_name.move_selector(-1)
             elif keys[pygame.K_UP] or keys[pygame.K_w]:
-                
-
-            else:
-                for key, pressed in enumerate(pygame.key.get_pressed()):
-                    if pressed and pygame.key.name(key) not in ('return', 'backspace'):
-                        text_input = str(pygame.key.name(key))
-                        print(text_input)
-                pygame.time.wait(100)
+                self.user_name.move_character(-1)
+            elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
+                self.user_name.move_character(1)
+            elif keys[pygame.K_RETURN]:
+                self.user_score.name = self.user_name.to_str()
+                self.high_scores.append(self.user_score)
+                self.init_game()
+            pygame.time.wait(150)
 
         elif self.game_state == 'run':
             # include controls for both WASD and Arrow Keys
@@ -406,16 +409,6 @@ if __name__ == "__main__":
     lander = LunarLanderGame(
         dimensions=(720, 720),
         fps=60,
-        game_state='high_score'
-    )
-
-    lander.user_score = ScoreEntry(
-        name=NameEntry(),
-        flight_time=30.0,
-        fuel_remaining=0.0,
-        heat=50,
-        crashed=False,
-        difficulty_settings=DifficultySettings())
-    lander.user_score.calculate_score()
+        game_state='main_menu')
 
     lander.run()
