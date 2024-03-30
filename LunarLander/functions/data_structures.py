@@ -41,8 +41,22 @@ class DifficultySettings:
 
 
 @dataclass
+class NameEntry:
+    letters: list[str] = [
+        'A', 'B', 'C', 'D', 'E', 'F', 'G',
+        'H', 'I', 'J', 'K', 'L', 'M', 'N',
+        'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+        'V', 'W', 'X', 'Y', 'Z']
+    name: list[int] = [0, 0, 0]
+    selector: int = 0
+
+    def name_str(cls) -> str:
+        return ''.join([cls.letters[x] for x in cls.name])
+
+
+@dataclass
 class ScoreEntry:
-    name: str
+    name: NameEntry
     flight_time: float
     fuel_remaining: float
     heat: float
