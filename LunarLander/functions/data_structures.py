@@ -26,7 +26,7 @@ class DifficultySettings:
         if cls.difficulty_preset == 1:
             # Moon: less gravity, less heat
             cls.difficulty_name = "Moon"
-            cls.heat_coefficient = 1.0
+            cls.heat_coefficient = 0.5
             cls.score_multiplier = 1.0
 
         elif cls.difficulty_preset == 2:
@@ -34,7 +34,7 @@ class DifficultySettings:
             cls.difficulty_name = "Curveball Moon"
             cls.starting_angular_velocity = float(randint(-5, 5))
             cls.starting_velocity = float(randint(0, 2))
-            cls.heat_coefficient = 2.0
+            cls.heat_coefficient = 1.0
             cls.score_multiplier = 2.0
 
         print(f'Loaded difficulty: {cls.__dict__}')
