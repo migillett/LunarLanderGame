@@ -358,7 +358,7 @@ class LunarLanderGame:
                 self.user_score.name = self.user_name.to_str()
                 self.high_scores.append(self.user_score)
                 self.init_game()
-            pygame.time.wait(70)
+            pygame.time.wait(85)
 
         elif self.game_state == 'show_scores':
             if keys[pygame.K_SPACE]:
@@ -375,18 +375,12 @@ class LunarLanderGame:
 
             # If landed successfully
             if self.user_score is not None and keys[pygame.K_SPACE]:
-                # high score logic
-                if len(self.high_scores) < 10:
+                if is_high_score(self.high_scores, self.user_score):
                     self.game_state = 'high_score'
-                    return
                 else:
-                    for score in self.high_scores:
-                        if self.user_score.score > score:
-                            self.game_state = 'high_score'
-                            return
-                # TODO - disabling for now till I figure out additive difficulty
-                # self.game_loop_int += 1
-                self.init_game()  # reset the score if not in high scores
+                    # TODO - disabling for now till I figure out additive difficulty
+                    # self.game_loop_int += 1
+                    self.init_game()  # reset the score if not in high scores
 
             # take screenshot
             if keys[pygame.K_p]:

@@ -10,3 +10,16 @@ def sort_scores(scores: list[ScoreEntry]) -> list[ScoreEntry]:
     if len(sorted_scores) > 10:
         sorted_scores = sorted_scores[:10]
     return sorted_scores
+
+
+def is_high_score(scores: list[ScoreEntry], user_score: ScoreEntry) -> bool:
+    if user_score.score == 0:
+        return False
+
+    if len(scores) < 10:
+        return True
+
+    for score in scores:
+        if user_score.score > score.score:
+            return True
+    return False

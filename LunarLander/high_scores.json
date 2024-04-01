@@ -1,6 +1,29 @@
 [
     {
         "name": "MAG",
+        "flight_time": 15.46,
+        "fuel_remaining": 83.0,
+        "heat": 0,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2136,
+        "timestamp": 1711937552.050888,
+        "achievements": [
+            "No time for chit-chat",
+            "Cool as a cucumber"
+        ]
+    },
+    {
+        "name": "MAG",
         "flight_time": 18.35,
         "fuel_remaining": 80.25,
         "heat": 2.55,
