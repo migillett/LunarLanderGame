@@ -54,18 +54,14 @@ class NameEntry:
     def move_selector(self, move_direction: int = 1) -> None:
         self.selector_index = (
             self.selector_index + move_direction) % len(self.name)
-        print(f'Selector set to: {self.selector_index}')
 
     def move_character(self, move_direction: int = 1) -> None:
         self.name[self.selector_index] = (
             self.name[self.selector_index] + move_direction) % len(self.letters)
-        print(
-            f'Character {self.selector_index} set to: {self.name[self.selector_index]}')
 
     def to_str(self) -> str:
         # returns a concat string of letters in name
         name = ''.join([self.letters[x] for x in self.name])
-        print(f'User name: {name}')
         return name
 
 
@@ -134,9 +130,10 @@ if __name__ == "__main__":
     difficulty = DifficultySettings()
 
     score = ScoreEntry(
-        name="Player 1",
+        name="",
         flight_time=30.0,
         fuel_remaining=0.0,
+        heat=0.0,
         crashed=False,
         difficulty_settings=difficulty)
     score.calculate_score()

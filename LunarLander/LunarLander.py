@@ -52,16 +52,15 @@ class LunarLanderGame:
 
     def init_game(self) -> None:
         # load main theme music
-        self.user_score = None
 
         pygame.mixer.music.load(
             path.join(self.audio_path, 'main-theme.mp3'))
         pygame.mixer.music.play(-1)
 
+        self.user_score = None
         self.difficulty = DifficultySettings(self.game_loop_int)
-
         self.start_time = datetime.now()
-        # self.user_score = None
+
         self.lander: PlayerLander = PlayerLander(
             x_pos=int(1),
             y_pos=int(self.dimensions[1] / 4),
@@ -78,15 +77,13 @@ class LunarLanderGame:
     def load_high_scores(self) -> None:
         if path.exists(self.scores_path):
             with open(self.scores_path, 'r') as f:
-                self.high_scores: list[ScoreEntry] = json.load(f)
+                self.high_scores: list[ScoreEntry] = [
+                    ScoreEntry(**x) for x in json.load(f)]
 
     def write_high_scores(self) -> None:
-        high_scores = sorted(
-            self.high_scores, key=lambda x: x['score'], reverse=True)
-        if len(high_scores) > 10:
-            high_scores = high_scores[:10]
+        high_scores = sort_scores(self.high_scores)
         with open(self.scores_path, 'w') as f:
-            json.dump(high_scores, f, indent=4)
+            json.dump([x.as_dict() for x in high_scores], f, indent=4)
 
     def calculate_flight_time(self) -> None:
         if not self.lander.landed:  # only update flight time if the lander hasn't landed
@@ -109,7 +106,9 @@ class LunarLanderGame:
             'LUNAR LANDER',
             f'Version: {self.version}',
             '',
-            'Press any button to continue',
+            'Press "T" to view high scores',
+            'Press any button to Continue',
+            '',
             'Press "Q" to Quit']
 
         self.blit_menu_text(menu_text)
@@ -123,6 +122,18 @@ class LunarLanderGame:
             self.user_name.to_str(),
         ]
         self.blit_menu_text(menu_text)
+
+    def show_high_scores(self) -> None:
+        self.high_scores = sort_scores(self.high_scores)
+        high_score_text = ['HIGH SCORES:']
+        if len(self.high_scores) > 0:
+            high_score_text.extend([
+                f'{x.name}: {x.score:>8,}' for x in self.high_scores
+            ])
+
+        high_score_text.extend(['', 'Press Space to Continue'])
+
+        self.blit_menu_text(high_score_text)
 
     def render_overheat_warning(self) -> None:
         warning_text = ''
@@ -292,12 +303,9 @@ class LunarLanderGame:
         score_text.extend([
             '',
             'Press "P" to take a Screenshot',
-            'Press "R" to Restart',
+            'Press Space to Continue',
             'Press "Q" to Quit',
         ])
-
-        # if not self.lander.crashed:
-        #     score_text.extend(['', 'Press Space to continue to next stage'])
 
         self.blit_menu_text(score_text)
 
@@ -312,11 +320,6 @@ class LunarLanderGame:
                 crashed=self.lander.crashed)
 
             self.user_score.calculate_score()
-
-            for score in self.high_scores:
-                if self.user_score.score > score:
-                    self.game_state = 'high_score'
-                    break
 
             self.audio_landed()
 
@@ -336,7 +339,10 @@ class LunarLanderGame:
             self.game_state = None
 
         if self.game_state == 'main_menu' and any(keys):
-            self.game_state = 'run'
+            if keys[pygame.K_t]:
+                self.game_state = 'show_scores'
+            else:
+                self.game_state = 'run'
 
         elif self.game_state == 'high_score' and self.user_score is not None:
             if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
@@ -348,10 +354,15 @@ class LunarLanderGame:
             elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
                 self.user_name.move_character(1)
             elif keys[pygame.K_RETURN]:
+                self.game_state = 'run'
                 self.user_score.name = self.user_name.to_str()
                 self.high_scores.append(self.user_score)
                 self.init_game()
-            pygame.time.wait(150)
+            pygame.time.wait(70)
+
+        elif self.game_state == 'show_scores':
+            if keys[pygame.K_SPACE]:
+                self.game_state = 'run'
 
         elif self.game_state == 'run':
             # include controls for both WASD and Arrow Keys
@@ -362,11 +373,20 @@ class LunarLanderGame:
             if keys[pygame.K_RIGHT] or keys[pygame.K_d]:  # pitch right
                 self.lander.fire_rcs(-0.25)
 
-            # If landed successfully, allow user to go to next stage
+            # If landed successfully
             if self.user_score is not None and keys[pygame.K_SPACE]:
+                # high score logic
+                if len(self.high_scores) < 10:
+                    self.game_state = 'high_score'
+                    return
+                else:
+                    for score in self.high_scores:
+                        if self.user_score.score > score:
+                            self.game_state = 'high_score'
+                            return
                 # TODO - disabling for now till I figure out additive difficulty
                 # self.game_loop_int += 1
-                self.init_game()
+                self.init_game()  # reset the score if not in high scores
 
             # take screenshot
             if keys[pygame.K_p]:
@@ -378,7 +398,9 @@ class LunarLanderGame:
     def run(self) -> None:
         self.load_high_scores()
 
-        self.init_game()
+        # only init when loading game from start (for testing)
+        if self.game_state == 'main_menu':
+            self.init_game()
 
         while self.game_state is not None:
 
@@ -389,6 +411,9 @@ class LunarLanderGame:
 
             elif self.game_state == "high_score":
                 self.high_score_menu()
+
+            elif self.game_state == 'show_scores':
+                self.show_high_scores()
 
             else:
                 self.handle_landing()
@@ -408,7 +433,6 @@ class LunarLanderGame:
 if __name__ == "__main__":
     lander = LunarLanderGame(
         dimensions=(720, 720),
-        fps=60,
-        game_state='main_menu')
+        fps=60)
 
     lander.run()
