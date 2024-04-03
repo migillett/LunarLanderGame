@@ -68,6 +68,7 @@ class NameEntry:
 @dataclass
 class ScoreEntry:
     name: str
+    game_version: str
     flight_time: float
     fuel_remaining: float
     heat: float
@@ -90,8 +91,8 @@ class ScoreEntry:
             cls.score += 600
             cls.achievements.append("Fuel efficient")
 
-        if cls.flight_time <= 20.0:
-            # No time for chit-chat - land successfully in less than 30 seconds
+        if cls.flight_time <= 15.0:
+            # No time for chit-chat - land successfully in less than n seconds
             cls.score += 600
             cls.achievements.append("No time for chit-chat")
         elif int(cls.flight_time) == 69:
@@ -100,7 +101,7 @@ class ScoreEntry:
             cls.achievements.append("Nice")
         elif int(cls.flight_time) >= 120:
             # Dilly-dallying - land successfully after more than 120 seconds
-            cls.score += 300
+            cls.score += 100
             cls.achievements.append("Dilly-dallying")
 
         if cls.heat >= 95.0:
@@ -112,7 +113,8 @@ class ScoreEntry:
             cls.score += 1000
             cls.achievements.append("Cool as a cucumber")
 
-        cls.score += int((cls.fuel_remaining / cls.flight_time) * 100)  # noqa
+        # V1.0.3 - Adjust score to weight fuel efficiency more heavily
+        cls.score += int((cls.fuel_remaining * 2 / cls.flight_time) * 100)  # noqa
         cls.score = int(
             cls.score * cls.difficulty_settings.score_multiplier)
 
@@ -127,16 +129,27 @@ class ScoreEntry:
 
 
 if __name__ == "__main__":
+    from matplotlib import pyplot as plt
+
+    x_values = range(10, 180)
+    y_values = []
+
     difficulty = DifficultySettings()
 
-    score = ScoreEntry(
-        name="",
-        flight_time=30.0,
-        fuel_remaining=0.0,
-        heat=0.0,
-        crashed=False,
-        difficulty_settings=difficulty)
-    score.calculate_score()
-    print(score.as_dict())
+    for x in x_values:
+        score = ScoreEntry(
+            name="",
+            game_version='test',
+            flight_time=x,
+            fuel_remaining=30,
+            heat=50.0,
+            crashed=False,
+            difficulty_settings=difficulty)
+        score.calculate_score()
+        y_values.append(score.score)
 
-    print(NameEntry().to_str())
+    plt.plot(x_values, y_values)
+    plt.xlabel('Flight Time (Seconds)')
+    plt.ylabel('Score')
+    plt.title('Correlation between Flight Time and Total Score')
+    plt.show()

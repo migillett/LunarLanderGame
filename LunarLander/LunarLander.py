@@ -16,7 +16,7 @@ class LunarLanderGame:
             fps: int = 60,
             game_state: str = 'main_menu') -> None:
 
-        self.version = '1.0.2'
+        self.version = '1.0.3'
 
         self.abs_path = path.dirname(path.abspath(__file__))
         self.audio_path = path.join(self.abs_path, 'assets', 'audio')
@@ -313,6 +313,7 @@ class LunarLanderGame:
         if self.lander.landed and self.user_score is None:
             self.user_score: ScoreEntry = ScoreEntry(
                 name=NameEntry(),
+                game_version=self.version,
                 flight_time=self.flight_time,
                 fuel_remaining=round(self.lander.fuel_remaining, 2),
                 heat=round(self.lander.heat, 2),
