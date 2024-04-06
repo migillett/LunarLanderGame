@@ -16,6 +16,7 @@ class LunarLanderGame:
             fps: int = 60,
             game_state: str = 'main_menu') -> None:
 
+        # https://semver.org/
         self.version = '1.0.3'
 
         self.abs_path = path.dirname(path.abspath(__file__))
@@ -135,11 +136,12 @@ class LunarLanderGame:
         if len(self.high_scores) == 0:
             return ['']
 
-        self.high_scores = sort_scores(self.high_scores)
+        # only pull a slice, don't overwrite scores
+        high_scores = sort_scores(self.high_scores, self.version)
         high_score_text = ['HIGH SCORES:']
-        max_index = len(self.high_scores) if len(self.high_scores) < 9 else 9
+        max_index = len(high_scores) if len(high_scores) < 9 else 9
         for i in range(0, max_index):
-            score = self.high_scores[i]
+            score = high_scores[i]
             high_score_text.append(f'{i+1}. {score.name}: {score.score:>8,}')
         return high_score_text
 
