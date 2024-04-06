@@ -91,22 +91,25 @@ class LunarLanderGame:
                 (datetime.now() - self.start_time).total_seconds(), 2)
 
     def blit_menu_text(self, text_list: list[str]) -> None:
-        start_y = None
+        y_offset = None
         for line in text_list:
             text_render = self.font.render(line, True, white)
-            if start_y is None:
-                start_y = text_render.get_height() * len(text_list)
+
+            if y_offset is None:
+                # (center of the window) - (total text blot center)
+                total_height = (text_render.get_height() * len(text_list))
+                y_offset = self.dimensions[1]//2 - total_height // 2
+
             text_rect = text_render.get_rect(
-                center=(self.dimensions[0] // 2, start_y))
-            start_y += text_render.get_height()
+                center=(self.dimensions[0] // 2, y_offset))
+            y_offset += text_render.get_height()
             self.canvas.blit(text_render, text_rect)
 
     def main_menu(self) -> None:
-        # TODO - Fix this
         self.canvas.fill(self.background)
         menu_text = [
             'LUNAR LANDER',
-            f'Version: {self.version}\n',
+            f'Version: {self.version}',
             '',
             *self.show_high_scores(),
             '',
@@ -122,18 +125,22 @@ class LunarLanderGame:
             f'Score: {self.user_score.score}',
             'Type your name:',
             self.user_name.to_str(),
+            self.user_name.selector_text(),
+            '',
+            'Press RETURN to Submit'
         ]
         self.blit_menu_text(menu_text)
 
-    def show_high_scores(self) -> str:
+    def show_high_scores(self) -> list[str]:
         if len(self.high_scores) == 0:
-            return ''
+            return ['']
 
         self.high_scores = sort_scores(self.high_scores)
         high_score_text = ['HIGH SCORES:']
-        for i in range(1, len(self.high_scores)):
+        max_index = len(self.high_scores) if len(self.high_scores) < 9 else 9
+        for i in range(0, max_index):
             score = self.high_scores[i]
-            high_score_text.append(f'{i}. {score.name}: {score.score:>8,}')
+            high_score_text.append(f'{i+1}. {score.name}: {score.score:>8,}')
         return high_score_text
 
     def render_overheat_warning(self) -> None:

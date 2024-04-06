@@ -59,6 +59,9 @@ class NameEntry:
         self.name[self.selector_index] = (
             self.name[self.selector_index] + move_direction) % len(self.letters)
 
+    def selector_text(self) -> str:
+        return f"{' ' * self.selector_index}^{' ' * (2 - self.selector_index)}"
+
     def to_str(self) -> str:
         # returns a concat string of letters in name
         name = ''.join([self.letters[x] for x in self.name])

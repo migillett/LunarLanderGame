@@ -6,10 +6,7 @@ def text_offset(text_list: list[str], window_dimensions: tuple[int, int]) -> int
 
 
 def sort_scores(scores: list[ScoreEntry]) -> list[ScoreEntry]:
-    sorted_scores = sorted(scores, key=lambda x: x.score, reverse=True)
-    if len(sorted_scores) > 10:
-        sorted_scores = sorted_scores[:10]
-    return sorted_scores
+    return sorted(scores, key=lambda x: x.score, reverse=True)
 
 
 def is_high_score(scores: list[ScoreEntry], user_score: ScoreEntry) -> bool:
