@@ -5,6 +5,7 @@ from functions.lander import *
 from functions.colors import *
 from functions.data_structures import *
 from functions.utilities import *
+from functions.game_audio import GameAudio
 
 import pygame
 
@@ -17,7 +18,7 @@ class LunarLanderGame:
             game_state: str = 'main_menu') -> None:
 
         # https://semver.org/
-        self.version = '1.0.3'
+        self.version = '1.0.4'
 
         self.abs_path = path.dirname(path.abspath(__file__))
         self.audio_path = path.join(self.abs_path, 'assets', 'audio')
@@ -51,12 +52,11 @@ class LunarLanderGame:
 
         self.difficulty: DifficultySettings | None = None
 
-    def init_game(self) -> None:
-        # load main theme music
+        self.audio = GameAudio(self.abs_path)
 
-        pygame.mixer.music.load(
-            path.join(self.audio_path, 'main-theme.mp3'))
-        pygame.mixer.music.play(-1)
+    def init_game(self) -> None:
+
+        self.audio.play_music()
 
         self.user_score = None
         self.difficulty = DifficultySettings(self.game_loop_int)
@@ -149,8 +149,10 @@ class LunarLanderGame:
         warning_text = ''
         if not self.lander.landed:
             if self.lander.thruster_on_cooldown():
+                self.audio.play_alarm()
                 warning_text = 'MANDATORY THRUSTER COOLDOWN'
-            elif self.lander.heat >= (self.lander.max_heat * 0.8):
+            elif self.lander.heat_warning():
+                self.audio.play_alarm()
                 warning_text = 'WARNING: HIGH HEAT!'
 
         warning_render = self.font.render(warning_text, True, red)
@@ -279,15 +281,9 @@ class LunarLanderGame:
 
     def audio_landed(self) -> None:
         if not self.lander.crashed:
-            audio_path = path.join(
-                self.audio_path, 'victory', 'VictorySmall.wav')
+            self.audio.play_victory()
         else:
-            audio_path = path.join(
-                self.audio_path, 'explosions', 'Explosion3.wav')
-
-        landing_audio = pygame.mixer.Sound(audio_path)
-        pygame.mixer.music.stop()
-        pygame.mixer.Sound.play(landing_audio)
+            self.audio.play_crash()
 
     def display_score(self, score: ScoreEntry) -> None:
         if self.lander.crashed:
@@ -373,6 +369,7 @@ class LunarLanderGame:
             # include controls for both WASD and Arrow Keys
             if keys[pygame.K_UP] or keys[pygame.K_w]:  # fire main thruster
                 self.lander.fire_thruster()
+                # self.audio.play_thruster() # TODO - fix the thruster audio to be shorter
             if keys[pygame.K_LEFT] or keys[pygame.K_a]:  # pitch left
                 self.lander.fire_rcs(0.25)
             if keys[pygame.K_RIGHT] or keys[pygame.K_d]:  # pitch right
