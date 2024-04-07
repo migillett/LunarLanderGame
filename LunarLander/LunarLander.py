@@ -331,6 +331,10 @@ class LunarLanderGame:
 
             self.audio_landed()
 
+    def take_screenshot(self) -> None:
+        filename = f'LunarLander_{datetime.now().strftime("%Y%m%d%H%M%S")}.png'
+        pygame.image.save(self.canvas, path.join(self.abs_path, filename))
+
     def handle_keyboard_events(self) -> None:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -386,10 +390,7 @@ class LunarLanderGame:
 
             # take screenshot
             if keys[pygame.K_p]:
-                filename = f'LunarLander_{datetime.now().strftime("%Y%m%d%H%M%S")}.png'
-                pygame.image.save(
-                    self.canvas,
-                    path.join(self.abs_path, filename))
+                self.take_screenshot()
 
     def run(self) -> None:
         self.load_high_scores()
