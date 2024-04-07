@@ -1,6 +1,30 @@
 [
     {
         "name": "MAG",
+        "game_version": "1.0.4",
+        "flight_time": 8.18,
+        "fuel_remaining": 42.5,
+        "heat": 97.6,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2239,
+        "timestamp": 1712456162.493148,
+        "achievements": [
+            "No time for chit-chat",
+            "Coming in hot"
+        ]
+    },
+    {
+        "name": "MAG",
         "game_version": "1.0.1",
         "flight_time": 15.46,
         "fuel_remaining": 83.0,
@@ -21,6 +45,29 @@
         "achievements": [
             "No time for chit-chat",
             "Cool as a cucumber"
+        ]
+    },
+    {
+        "name": "MAG",
+        "game_version": "1.0.4",
+        "flight_time": 6.94,
+        "fuel_remaining": 52.0,
+        "heat": 77.45,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2098,
+        "timestamp": 1712456066.03677,
+        "achievements": [
+            "No time for chit-chat"
         ]
     },
     {
