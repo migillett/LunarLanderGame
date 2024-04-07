@@ -80,6 +80,10 @@ class PlayerLander(pygame.sprite.Sprite):
         difference = datetime.now() - self.overheat_timestamp
         return difference <= self.cooldown_period
 
+    def heat_warning(self) -> bool:
+        # returns true if hot
+        return self.heat >= (self.max_heat * 0.8)
+
     def thruster_conditions(self) -> bool:
         # return True if thrusters CAN be fired
         return (

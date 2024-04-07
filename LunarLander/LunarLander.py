@@ -5,6 +5,7 @@ from functions.lander import *
 from functions.colors import *
 from functions.data_structures import *
 from functions.utilities import *
+from functions.game_audio import GameAudio
 
 import pygame
 
@@ -17,7 +18,7 @@ class LunarLanderGame:
             game_state: str = 'main_menu') -> None:
 
         # https://semver.org/
-        self.version = '1.0.3'
+        self.version = '1.0.4'
 
         self.abs_path = path.dirname(path.abspath(__file__))
         self.audio_path = path.join(self.abs_path, 'assets', 'audio')
@@ -51,12 +52,11 @@ class LunarLanderGame:
 
         self.difficulty: DifficultySettings | None = None
 
-    def init_game(self) -> None:
-        # load main theme music
+        self.audio = GameAudio(self.abs_path)
 
-        pygame.mixer.music.load(
-            path.join(self.audio_path, 'main-theme.mp3'))
-        pygame.mixer.music.play(-1)
+    def init_game(self) -> None:
+
+        self.audio.play_music()
 
         self.user_score = None
         self.difficulty = DifficultySettings(self.game_loop_int)
@@ -149,8 +149,10 @@ class LunarLanderGame:
         warning_text = ''
         if not self.lander.landed:
             if self.lander.thruster_on_cooldown():
+                self.audio.play_alarm()
                 warning_text = 'MANDATORY THRUSTER COOLDOWN'
-            elif self.lander.heat >= (self.lander.max_heat * 0.8):
+            elif self.lander.heat_warning():
+                self.audio.play_alarm()
                 warning_text = 'WARNING: HIGH HEAT!'
 
         warning_render = self.font.render(warning_text, True, red)
@@ -279,15 +281,9 @@ class LunarLanderGame:
 
     def audio_landed(self) -> None:
         if not self.lander.crashed:
-            audio_path = path.join(
-                self.audio_path, 'victory', 'VictorySmall.wav')
+            self.audio.play_victory()
         else:
-            audio_path = path.join(
-                self.audio_path, 'explosions', 'Explosion3.wav')
-
-        landing_audio = pygame.mixer.Sound(audio_path)
-        pygame.mixer.music.stop()
-        pygame.mixer.Sound.play(landing_audio)
+            self.audio.play_crash()
 
     def display_score(self, score: ScoreEntry) -> None:
         if self.lander.crashed:
@@ -335,6 +331,51 @@ class LunarLanderGame:
 
             self.audio_landed()
 
+    def game_controls(self, keys: pygame.key.get_pressed):
+        # include controls for both WASD and Arrow Keys
+        if keys[pygame.K_UP] or keys[pygame.K_w]:  # fire main thruster
+            self.lander.fire_thruster()
+            # self.audio.play_thruster() # TODO - fix the thruster audio to be shorter
+
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:  # pitch left
+            self.lander.fire_rcs(0.25)
+
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:  # pitch right
+            self.lander.fire_rcs(-0.25)
+
+        # take screenshot
+        if keys[pygame.K_p]:
+            self.take_screenshot()
+
+        # If landed successfully
+        if self.user_score is not None and keys[pygame.K_SPACE]:
+            if is_high_score(self.high_scores, self.user_score):
+                self.game_state = 'high_score'
+            else:
+                # TODO - disabling for now till I figure out additive difficulty
+                # self.game_loop_int += 1
+                self.init_game()  # reset the score if not in high scores
+
+    def high_score_controls(self, keys: pygame.key.get_pressed):
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            self.user_name.move_selector(1)
+        elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            self.user_name.move_selector(-1)
+        elif keys[pygame.K_UP] or keys[pygame.K_w]:
+            self.user_name.move_character(-1)
+        elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
+            self.user_name.move_character(1)
+        elif keys[pygame.K_RETURN]:
+            self.game_state = 'run'
+            self.user_score.name = self.user_name.to_str()
+            self.high_scores.append(self.user_score)
+            self.init_game()
+        pygame.time.wait(80)
+
+    def take_screenshot(self) -> None:
+        filename = f'LunarLander_{datetime.now().strftime("%Y%m%d%H%M%S")}.png'
+        pygame.image.save(self.canvas, path.join(self.abs_path, filename))
+
     def handle_keyboard_events(self) -> None:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -347,52 +388,16 @@ class LunarLanderGame:
             self.init_game()
         # quit
         if keys[pygame.K_q]:
-            # quit
             self.game_state = None
 
         if self.game_state == 'main_menu' and any(keys):
             self.game_state = 'run'
 
-        elif self.game_state == 'high_score' and self.user_score is not None:
-            if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-                self.user_name.move_selector(1)
-            elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
-                self.user_name.move_selector(-1)
-            elif keys[pygame.K_UP] or keys[pygame.K_w]:
-                self.user_name.move_character(-1)
-            elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
-                self.user_name.move_character(1)
-            elif keys[pygame.K_RETURN]:
-                self.game_state = 'run'
-                self.user_score.name = self.user_name.to_str()
-                self.high_scores.append(self.user_score)
-                self.init_game()
-            pygame.time.wait(80)
-
         elif self.game_state == 'run':
-            # include controls for both WASD and Arrow Keys
-            if keys[pygame.K_UP] or keys[pygame.K_w]:  # fire main thruster
-                self.lander.fire_thruster()
-            if keys[pygame.K_LEFT] or keys[pygame.K_a]:  # pitch left
-                self.lander.fire_rcs(0.25)
-            if keys[pygame.K_RIGHT] or keys[pygame.K_d]:  # pitch right
-                self.lander.fire_rcs(-0.25)
+            self.game_controls(keys)
 
-            # If landed successfully
-            if self.user_score is not None and keys[pygame.K_SPACE]:
-                if is_high_score(self.high_scores, self.user_score):
-                    self.game_state = 'high_score'
-                else:
-                    # TODO - disabling for now till I figure out additive difficulty
-                    # self.game_loop_int += 1
-                    self.init_game()  # reset the score if not in high scores
-
-            # take screenshot
-            if keys[pygame.K_p]:
-                filename = f'LunarLander_{datetime.now().strftime("%Y%m%d%H%M%S")}.png'
-                pygame.image.save(
-                    self.canvas,
-                    path.join(self.abs_path, filename))
+        elif self.game_state == 'high_score' and self.user_score is not None:
+            self.high_score_controls(keys)
 
     def run(self) -> None:
         self.load_high_scores()
