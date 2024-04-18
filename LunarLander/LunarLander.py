@@ -137,14 +137,19 @@ class LunarLanderGame:
             return ['']
 
         # only pull a slice, don't overwrite scores
-        high_scores = sort_scores(self.high_scores, self.version)
+        high_scores = sort_scores(self.high_scores, self.version)[:10]
         high_score_text = ['HIGH SCORES:']
-        if len(self.high_scores) > 0:
-            high_score_text.extend([
-                f'{x.name}: {x.score:>8,}' for x in self.high_scores
-            ])
+        if len(high_scores) > 0:
+            for i in range(len(high_scores)):
+                score = high_scores[i]
+                high_score_text.extend([
+                    f'{i+1:>2}: {score.name}: {score.score:>8,}'
+                ])
 
-        high_score_text.extend(['', 'Press Space to Continue'])
+        high_score_text.extend([
+            '',
+            'Press "M" to return to Main Menu',
+        ])
 
         self.blit_menu_text(high_score_text)
 
@@ -396,6 +401,8 @@ class LunarLanderGame:
         if self.game_state == 'main_menu' and any(keys):
             if keys[pygame.K_t]:
                 self.game_state = 'show_scores'
+            elif keys[pygame.K_m]:
+                pass
             else:
                 self.game_state = 'run'
 
@@ -416,8 +423,8 @@ class LunarLanderGame:
             pygame.time.wait(85)
 
         elif self.game_state == 'show_scores':
-            if keys[pygame.K_SPACE]:
-                self.game_state = 'run'
+            if keys[pygame.K_m]:
+                self.game_state = 'main_menu'
 
         elif self.game_state == 'run':
             self.game_controls(keys)
