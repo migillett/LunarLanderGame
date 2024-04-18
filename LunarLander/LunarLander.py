@@ -112,9 +112,9 @@ class LunarLanderGame:
             'LUNAR LANDER',
             f'Version: {self.version}',
             '',
-            'Press "T" to view high scores',
             'Press any button to Continue',
-            '',
+            'Press "S" to change difficulty',
+            'Press "T" to view high scores',
             'Press "Q" to Quit']
 
         self.blit_menu_text(menu_text)
@@ -152,6 +152,11 @@ class LunarLanderGame:
         ])
 
         self.blit_menu_text(high_score_text)
+
+    def show_settings(self) -> None:
+        difficulty_text = ['Select Difficiulty']
+
+        self.blit_menu_text(difficulty_text)
 
     def render_overheat_warning(self) -> None:
         warning_text = ''
@@ -399,10 +404,12 @@ class LunarLanderGame:
             self.game_state = None
 
         if self.game_state == 'main_menu' and any(keys):
-            if keys[pygame.K_t]:
-                self.game_state = 'show_scores'
-            elif keys[pygame.K_m]:
+            if keys[pygame.K_m]:
                 pass
+            elif keys[pygame.K_t]:
+                self.game_state = 'show_scores'
+            elif keys[pygame.K_s]:
+                self.game_state = 'settings'
             else:
                 self.game_state = 'run'
 
@@ -451,6 +458,9 @@ class LunarLanderGame:
 
             elif self.game_state == 'show_scores':
                 self.show_high_scores()
+
+            elif self.game_state == 'settings':
+                self.show_settings()
 
             else:
                 self.handle_landing()
