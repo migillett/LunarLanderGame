@@ -127,7 +127,6 @@ class LunarLanderGame:
             'Type your name:',
             self.user_name.to_str(),
             self.user_name.selector_text(),
-            '',
             'Press RETURN to Submit'
         ]
         self.blit_menu_text(menu_text)
@@ -138,7 +137,7 @@ class LunarLanderGame:
 
         # only pull a slice, don't overwrite scores
         high_scores = sort_scores(self.high_scores, self.version)[:10]
-        high_score_text = ['HIGH SCORES:']
+        high_score_text = ['HIGH SCORES:', '']
         if len(high_scores) > 0:
             for i in range(len(high_scores)):
                 score = high_scores[i]

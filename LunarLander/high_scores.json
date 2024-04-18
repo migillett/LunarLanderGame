@@ -25,6 +25,29 @@
     },
     {
         "name": "MAG",
+        "game_version": "1.0.5",
+        "flight_time": 6.2,
+        "fuel_remaining": 49.75,
+        "heat": 83.55,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2204,
+        "timestamp": 1713458760.312444,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "MAG",
         "game_version": "1.0.1",
         "flight_time": 15.46,
         "fuel_remaining": 83.0,
