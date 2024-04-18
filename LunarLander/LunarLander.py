@@ -112,7 +112,7 @@ class LunarLanderGame:
             'LUNAR LANDER',
             f'Version: {self.version}',
             '',
-            'Press any button to Continue',
+            'Press Space to Play',
             'Press "S" to change difficulty',
             'Press "T" to view high scores',
             'Press "Q" to Quit']
