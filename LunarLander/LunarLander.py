@@ -18,7 +18,7 @@ class LunarLanderGame:
             game_state: str = 'main_menu') -> None:
 
         # https://semver.org/
-        self.version = '1.0.5'
+        self.version = '1.1.0'
 
         self.abs_path = path.dirname(path.abspath(__file__))
         self.audio_path = path.join(self.abs_path, 'assets', 'audio')
