@@ -1,5 +1,327 @@
 [
     {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 6.95,
+        "fuel_remaining": 72.75,
+        "heat": 36.1,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2693,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 6.13,
+        "fuel_remaining": 62.5,
+        "heat": 58.4,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2639,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 8.07,
+        "fuel_remaining": 80.0,
+        "heat": 18.15,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2582,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 7.61,
+        "fuel_remaining": 74.25,
+        "heat": 31.25,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2551,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 7.9,
+        "fuel_remaining": 76.25,
+        "heat": 25.65,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2530,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 7.12,
+        "fuel_remaining": 68.0,
+        "heat": 46.15,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2510,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 7.26,
+        "fuel_remaining": 69.25,
+        "heat": 41.75,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2507,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 7.35,
+        "fuel_remaining": 69.0,
+        "heat": 42.55,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2477,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 7.83,
+        "fuel_remaining": 70.5,
+        "heat": 38.4,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2400,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 7.45,
+        "fuel_remaining": 66.5,
+        "heat": 47.3,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2385,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 8.06,
+        "fuel_remaining": 70.5,
+        "heat": 37.4,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2349,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 8.6,
+        "fuel_remaining": 75.0,
+        "heat": 27.45,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2344,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 8.33,
+        "fuel_remaining": 70.0,
+        "heat": 38.15,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2280,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 7.33,
+        "fuel_remaining": 60.25,
+        "heat": 60.45,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2243,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
         "name": "MAG",
         "game_version": "1.0.4",
         "flight_time": 8.18,
@@ -21,6 +343,29 @@
         "achievements": [
             "No time for chit-chat",
             "Coming in hot"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 8.2,
+        "fuel_remaining": 66.0,
+        "heat": 46.9,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2209,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
         ]
     },
     {
@@ -71,6 +416,121 @@
         ]
     },
     {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 9.28,
+        "fuel_remaining": 71.25,
+        "heat": 32.75,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2135,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 9.79,
+        "fuel_remaining": 74.25,
+        "heat": 26.1,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2116,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 9.4,
+        "fuel_remaining": 71.25,
+        "heat": 32.9,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2115,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 8.88,
+        "fuel_remaining": 67.0,
+        "heat": 43.25,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2109,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 9.92,
+        "fuel_remaining": 74.5,
+        "heat": 23.85,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2102,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
         "name": "MAG",
         "game_version": "1.0.4",
         "flight_time": 6.94,
@@ -117,6 +577,144 @@
         ]
     },
     {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 9.06,
+        "fuel_remaining": 67.5,
+        "heat": 41.4,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2090,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 9.27,
+        "fuel_remaining": 67.75,
+        "heat": 38.65,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2061,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 10.73,
+        "fuel_remaining": 78.0,
+        "heat": 14.55,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2053,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 7.26,
+        "fuel_remaining": 52.5,
+        "heat": 76.15,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2046,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 9.29,
+        "fuel_remaining": 66.0,
+        "heat": 43.85,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2020,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "AAA",
+        "game_version": "1.0.5",
+        "flight_time": 10.08,
+        "fuel_remaining": 71.25,
+        "heat": 30.65,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2013,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
         "name": "MAG",
         "game_version": "1.0.3",
         "flight_time": 9.25,
@@ -135,6 +733,29 @@
         },
         "score": 1908,
         "timestamp": 1712424162.573859,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 11.28,
+        "fuel_remaining": 71.75,
+        "heat": 26.2,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1872,
+        "timestamp": 1714840574.994526,
         "achievements": [
             "No time for chit-chat"
         ]
@@ -163,6 +784,75 @@
         ]
     },
     {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 12.94,
+        "fuel_remaining": 77.25,
+        "heat": 10.95,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1793,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 12.45,
+        "fuel_remaining": 74.25,
+        "heat": 17.65,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1792,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 13.18,
+        "fuel_remaining": 78.25,
+        "heat": 8.65,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1787,
+        "timestamp": 1714842630.814726,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
         "name": "MAG",
         "game_version": "1.0.3",
         "flight_time": 9.73,
@@ -181,6 +871,144 @@
         },
         "score": 1766,
         "timestamp": 1712196681.049679,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 13.72,
+        "fuel_remaining": 78.0,
+        "heat": 11.7,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1737,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 14.73,
+        "fuel_remaining": 83.0,
+        "heat": 7.45,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1726,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 11.46,
+        "fuel_remaining": 64.25,
+        "heat": 40.85,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1721,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 14.26,
+        "fuel_remaining": 78.25,
+        "heat": 12.75,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1697,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 13.96,
+        "fuel_remaining": 75.25,
+        "heat": 12.15,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1678,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 14.73,
+        "fuel_remaining": 76.25,
+        "heat": 8.8,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1635,
+        "timestamp": 1714840574.994526,
         "achievements": [
             "No time for chit-chat"
         ]
@@ -209,6 +1037,98 @@
         ]
     },
     {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 25.98,
+        "fuel_remaining": 67.5,
+        "heat": 0,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1519,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "Cool as a cucumber"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 9.83,
+        "fuel_remaining": 44.75,
+        "heat": 83.85,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1510,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 14.19,
+        "fuel_remaining": 60.25,
+        "heat": 41.55,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1449,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 10.48,
+        "fuel_remaining": 42.5,
+        "heat": 87.9,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1411,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
         "name": "MAG",
         "game_version": "1.0.1",
         "flight_time": 9.89,
@@ -229,6 +1149,52 @@
         "timestamp": 1712109887.772434,
         "achievements": [
             "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 14.0,
+        "fuel_remaining": 49.75,
+        "heat": 62.7,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1310,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 35.15,
+        "fuel_remaining": 49.25,
+        "heat": 1.6,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1280,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "Cool as a cucumber"
         ]
     },
     {
@@ -255,6 +1221,27 @@
         ]
     },
     {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 15.08,
+        "fuel_remaining": 80.25,
+        "heat": 5.7,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1064,
+        "timestamp": 1714840574.994526,
+        "achievements": []
+    },
+    {
         "name": "MAG",
         "game_version": "1.0.1",
         "flight_time": 18.35,
@@ -276,6 +1263,197 @@
         "achievements": [
             "No time for chit-chat"
         ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 63.01,
+        "fuel_remaining": 0.0,
+        "heat": 19.55,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1000,
+        "timestamp": 1714840574.994526,
+        "achievements": [
+            "Nothing but fumes"
+        ]
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 16.08,
+        "fuel_remaining": 79.0,
+        "heat": 11.5,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 982,
+        "timestamp": 1714840574.994526,
+        "achievements": []
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 16.53,
+        "fuel_remaining": 75.25,
+        "heat": 8.7,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 910,
+        "timestamp": 1714840574.994526,
+        "achievements": []
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 15.57,
+        "fuel_remaining": 57.5,
+        "heat": 43.65,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 738,
+        "timestamp": 1714840574.994526,
+        "achievements": []
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 21.48,
+        "fuel_remaining": 66.5,
+        "heat": 8.05,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 619,
+        "timestamp": 1714840574.994526,
+        "achievements": []
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 21.71,
+        "fuel_remaining": 67.0,
+        "heat": 15.9,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 617,
+        "timestamp": 1714840574.994526,
+        "achievements": []
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 20.62,
+        "fuel_remaining": 51.25,
+        "heat": 39.5,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 497,
+        "timestamp": 1714840574.994526,
+        "achievements": []
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 28.34,
+        "fuel_remaining": 59.25,
+        "heat": 10.95,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 418,
+        "timestamp": 1714840574.994526,
+        "achievements": []
+    },
+    {
+        "name": "DAG",
+        "game_version": "1.0.5",
+        "flight_time": 24.23,
+        "fuel_remaining": 49.0,
+        "heat": 34.35,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 404,
+        "timestamp": 1714840574.994526,
+        "achievements": []
     },
     {
         "name": "MAG",
