@@ -127,7 +127,8 @@ class LunarLanderGame:
             'Type your name:',
             self.user_name.to_str(),
             self.user_name.selector_text(),
-            'Press RETURN to Submit'
+            'Press "M" to return to Main Menu',
+            'Press RETURN to Submit',
         ]
         self.blit_menu_text(menu_text)
 
@@ -321,6 +322,7 @@ class LunarLanderGame:
         score_text.extend([
             '',
             'Press "P" to take a Screenshot',
+            'Press "M" to return to Main Menu',
             'Press "Q" to Quit',
             '',
             'Press Space to Continue',
@@ -344,6 +346,10 @@ class LunarLanderGame:
             self.audio_landed()
 
     def game_controls(self, keys: pygame.key.get_pressed):
+        # return to main menu
+        if keys[pygame.K_m]:
+            self.game_state = 'main_menu'
+
         # include controls for both WASD and Arrow Keys
         if keys[pygame.K_UP] or keys[pygame.K_w]:  # fire main thruster
             self.lander.fire_thruster()
@@ -377,11 +383,14 @@ class LunarLanderGame:
             self.user_name.move_character(-1)
         elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
             self.user_name.move_character(1)
-        elif keys[pygame.K_RETURN]:
-            self.game_state = 'run'
+        elif keys[pygame.K_RETURN] or keys[pygame.K_m]:
+            if keys[pygame.K_m]:
+                self.game_state = 'main_menu'
+            else:
+                self.game_state = 'run'
+                self.init_game()
             self.user_score.name = self.user_name.to_str()
             self.high_scores.append(self.user_score)
-            self.init_game()
         pygame.time.wait(80)
 
     def take_screenshot(self) -> None:

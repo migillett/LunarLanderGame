@@ -94,7 +94,10 @@ class ScoreEntry:
             cls.score += 600
             cls.achievements.append("Fuel efficient")
 
-        if cls.flight_time <= 15.0:
+        if cls.flight_time <= 7.5:
+            cls.score += 1000
+            cls.achievements.append('Speed Demon')
+        elif cls.flight_time <= 15.0:
             # No time for chit-chat - land successfully in less than n seconds
             cls.score += 600
             cls.achievements.append("No time for chit-chat")
