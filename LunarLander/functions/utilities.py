@@ -32,10 +32,11 @@ def is_high_score(scores: list[ScoreEntry], user_score: ScoreEntry) -> bool:
     if user_score.score == 0:
         return False
 
+    scores = sorted(scores, key=lambda x: x.score, reverse=True)
     if len(scores) < 10:
         return True
 
-    for score in scores:
+    for score in scores[:10]:
         if user_score.score > score.score:
             return True
     return False

@@ -1,5 +1,29 @@
 [
     {
+        "name": "MAG",
+        "game_version": "1.1.0",
+        "flight_time": 5.22,
+        "fuel_remaining": 44.25,
+        "heat": 97.25,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 3295,
+        "timestamp": 1714871002.188614,
+        "achievements": [
+            "Speed Demon",
+            "Coming in hot"
+        ]
+    },
+    {
         "name": "DAG",
         "game_version": "1.1.0",
         "flight_time": 6.5,
@@ -368,6 +392,29 @@
         ]
     },
     {
+        "name": "MAG",
+        "game_version": "1.1.0",
+        "flight_time": 5.37,
+        "fuel_remaining": 49.5,
+        "heat": 85.8,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2843,
+        "timestamp": 1714867688.241708,
+        "achievements": [
+            "Speed Demon"
+        ]
+    },
+    {
         "name": "DAG",
         "game_version": "1.1.0",
         "flight_time": 7.2,
@@ -411,6 +458,30 @@
         "timestamp": 1714844851.520158,
         "achievements": [
             "Speed Demon"
+        ]
+    },
+    {
+        "name": "MAG",
+        "game_version": "1.1.0",
+        "flight_time": 7.35,
+        "fuel_remaining": 40.75,
+        "heat": 98.3,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2708,
+        "timestamp": 1714870602.163206,
+        "achievements": [
+            "Speed Demon",
+            "Coming in hot"
         ]
     },
     {
@@ -713,6 +784,29 @@
         ]
     },
     {
+        "name": "MAG",
+        "game_version": "1.1.0",
+        "flight_time": 6.15,
+        "fuel_remaining": 44.25,
+        "heat": 94.35,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2439,
+        "timestamp": 1714870602.163206,
+        "achievements": [
+            "Speed Demon"
+        ]
+    },
+    {
         "name": "DAG",
         "game_version": "1.0.5",
         "flight_time": 7.83,
@@ -779,6 +873,29 @@
         "timestamp": 1714844851.520158,
         "achievements": [
             "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "MAG",
+        "game_version": "1.1.0",
+        "flight_time": 7.07,
+        "fuel_remaining": 48.25,
+        "heat": 83.95,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 2364,
+        "timestamp": 1714870602.163206,
+        "achievements": [
+            "Speed Demon"
         ]
     },
     {
@@ -1746,6 +1863,29 @@
         },
         "score": 1726,
         "timestamp": 1714840574.994526,
+        "achievements": [
+            "No time for chit-chat"
+        ]
+    },
+    {
+        "name": "MAG",
+        "game_version": "1.1.0",
+        "flight_time": 7.84,
+        "fuel_remaining": 44.0,
+        "heat": 90.65,
+        "crashed": false,
+        "difficulty_settings": {
+            "difficulty_preset": 1,
+            "difficulty_name": "Moon",
+            "gravity": 0.0253,
+            "max_speed": 1.5,
+            "score_multiplier": 1.0,
+            "starting_velocity": 1.0,
+            "starting_angular_velocity": 0.0,
+            "heat_coefficient": 0.5
+        },
+        "score": 1722,
+        "timestamp": 1714867688.241708,
         "achievements": [
             "No time for chit-chat"
         ]

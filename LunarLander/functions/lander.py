@@ -57,6 +57,9 @@ class PlayerLander(pygame.sprite.Sprite):
         self.sprite_thruster: pygame.image = self.load_sprite(
             path.join(abs_path, 'assets', 'lander', 'lander_thruster.png'),
             50)
+        self.sprite_crashed: pygame.image = self.load_sprite(
+            path.join(abs_path, 'assets', 'lander', 'lander_crashed.png'),
+            50)
 
         self.heat_coefficient = heat_coefficient
 
@@ -122,6 +125,9 @@ class PlayerLander(pygame.sprite.Sprite):
             sprite_copy = pygame.transform.rotate(
                 self.sprite_thruster, self.angle)
             self.thruster_state = False
+        elif self.crashed:
+            sprite_copy = pygame.transform.rotate(
+                self.sprite_crashed, self.angle)
         else:
             sprite_copy = pygame.transform.rotate(
                 self.sprite_default, self.angle)

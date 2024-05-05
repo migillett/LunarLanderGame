@@ -18,7 +18,7 @@ class LunarLanderGame:
             game_state: str = 'main_menu') -> None:
 
         # https://semver.org/
-        self.version = '1.1.0'
+        self.version = '1.1.1'
 
         self.abs_path = path.dirname(path.abspath(__file__))
         self.audio_path = path.join(self.abs_path, 'assets', 'audio')
@@ -112,8 +112,10 @@ class LunarLanderGame:
             'LUNAR LANDER',
             f'Version: {self.version}',
             '',
+            '',
             'Press Space to Play',
-            'Press "S" to change difficulty',
+            '',
+            # 'Press "S" to change difficulty',
             'Press "T" to view high scores',
             'Press "Q" to Quit']
 

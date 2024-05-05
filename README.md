@@ -20,9 +20,10 @@ This project includes [sprites](https://opengameart.org/content/apollo-moon-land
 Feel free to create a PR for your high score JSON payload. I eventually want to create a simple FastAPI server to host scores long-term, but this will work for now.
 
 # To Do List
+- Update the lander sprite so it detects collisions when it touches ground only.
 - Balance the scores a bit more based on difficulty
 - Add in more landing sites that increase in difficulty and score mulipliers
 - Add in lunar lander skins
 - Lunar lander upgrades?
 - Compile for Windows, Mac OS and Linux
-- FastAPI server to receive score POST events and serve up scores
+- FastAPI server to receive score POST events and GET scores
